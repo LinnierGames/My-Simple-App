@@ -15,6 +15,9 @@
 		E100AF2624C682F7007268AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E100AF2424C682F7007268AE /* LaunchScreen.storyboard */; };
 		E100AF3124C682F7007268AE /* My_Simple_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF3024C682F7007268AE /* My_Simple_AppTests.swift */; };
 		E100AF3C24C682F8007268AE /* My_Simple_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF3B24C682F8007268AE /* My_Simple_AppUITests.swift */; };
+		E100AF4A24C68D90007268AE /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF4924C68D90007268AE /* WeatherTableViewCell.swift */; };
+		E100AF4C24C68DD1007268AE /* UnknownTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF4B24C68DD1007268AE /* UnknownTableViewCell.swift */; };
+		E100AF4E24C6A4FA007268AE /* URLSession+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF4D24C6A4FA007268AE /* URLSession+Fake.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		E100AF3724C682F7007268AE /* My Simple AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "My Simple AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E100AF3B24C682F8007268AE /* My_Simple_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = My_Simple_AppUITests.swift; sourceTree = "<group>"; };
 		E100AF3D24C682F8007268AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E100AF4924C68D90007268AE /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
+		E100AF4B24C68DD1007268AE /* UnknownTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownTableViewCell.swift; sourceTree = "<group>"; };
+		E100AF4D24C6A4FA007268AE /* URLSession+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Fake.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +108,9 @@
 				E100AF1924C682F6007268AE /* AppDelegate.swift */,
 				E100AF1B24C682F6007268AE /* SceneDelegate.swift */,
 				E100AF1D24C682F6007268AE /* ViewController.swift */,
+				E100AF4924C68D90007268AE /* WeatherTableViewCell.swift */,
+				E100AF4B24C68DD1007268AE /* UnknownTableViewCell.swift */,
+				E100AF4D24C6A4FA007268AE /* URLSession+Fake.swift */,
 				E100AF1F24C682F6007268AE /* Main.storyboard */,
 				E100AF2224C682F7007268AE /* Assets.xcassets */,
 				E100AF2424C682F7007268AE /* LaunchScreen.storyboard */,
@@ -259,7 +268,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E100AF4A24C68D90007268AE /* WeatherTableViewCell.swift in Sources */,
 				E100AF1E24C682F6007268AE /* ViewController.swift in Sources */,
+				E100AF4C24C68DD1007268AE /* UnknownTableViewCell.swift in Sources */,
+				E100AF4E24C6A4FA007268AE /* URLSession+Fake.swift in Sources */,
 				E100AF1A24C682F6007268AE /* AppDelegate.swift in Sources */,
 				E100AF1C24C682F6007268AE /* SceneDelegate.swift in Sources */,
 			);
@@ -436,11 +448,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "My Simple App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.linniergames.My-Simple-App";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.linniergames.my-simple-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -453,11 +466,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "My Simple App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.linniergames.My-Simple-App";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.linniergames.my-simple-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
