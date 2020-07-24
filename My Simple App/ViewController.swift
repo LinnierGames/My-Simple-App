@@ -9,32 +9,6 @@
 import UIKit
 import CoreLocation
 
-class Address {
-  var rawValue: String?
-  var coordinates: CLLocationCoordinate2D?
-  var weather: Weather?
-}
-
-struct WeatherIcon {
-  let name: String
-  let image: UIImage
-}
-
-struct Weather {
-  let temperature: CGFloat
-  let icon: WeatherIcon
-}
-
-struct WeatherData: Decodable {
-  let temperature: Float
-  let rawIcon: String
-
-  enum CodingKeys: String, CodingKey {
-    case temperature
-    case rawIcon = "raw-icon"
-  }
-}
-
 class ViewController: UIViewController {
   @IBOutlet weak var table: UITableView!
 
@@ -63,119 +37,37 @@ class ViewController: UIViewController {
     self.table.reloadData()
   }
 
-  func save() {
-    let userDefaults = UserDefaults.standard
-
-    let addressObjects = validAddresses.map { address in
-      return [
-        "address": address.rawValue!,
-        "latitude": address.coordinates!.latitude,
-        "longitude": address.coordinates!.longitude,
-        "temperature" : Double(address.weather!.temperature),
-        "raw-icon": address.weather!.icon.name
-      ]
-    }
-    userDefaults.setValue(addressObjects, forKeyPath: "user-addresses")
-    let invalidAddressObjects = invalidAddresses.map { address in
-      return [
-        "address": address.rawValue!,
-      ]
-    }
-    userDefaults.setValue(invalidAddressObjects, forKeyPath: "invalid-addresses")
+  private func save() {
+    DataStore.save(validAddresses: validAddresses, invalidAddresses: invalidAddresses)
   }
 
-  func load() {
-    let userDefaults = UserDefaults.standard
-    if let validAddressObjects = userDefaults.array(forKey: "user-addresses") as? [[String: Any]] {
-      validAddresses = validAddressObjects.compactMap { object in
-        guard
-          let value = object["address"] as? String,
-          let latitude = object["latitude"] as? Double,
-          let longitude = object["longitude"] as? Double,
-          let temerature = object["temperature"] as? Double,
-          let rawIcon = object["raw-icon"] as? String
-        else {
-          return nil
-        }
-
-        let address = Address()
-        address.rawValue = value
-        address.coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        address.weather = Weather(
-          temperature: CGFloat(temerature),
-          icon: WeatherIcon(name: rawIcon, image: UIImage(named: rawIcon)!)
-        )
-
-        return address
-      }
-    }
-
-    if let invalidAddressObjects = userDefaults.array(forKey: "invalid-addresses") as? [[String: Any]] {
-      invalidAddresses = invalidAddressObjects.compactMap { object in
-        guard let value = object["address"] as? String else {
-          return nil
-        }
-
-        let address = Address()
-        address.rawValue = value
-
-        return address
-      }
-    }
+  private func load() {
+    let userData = DataStore.load()
+    validAddresses = userData.validAddresses
+    invalidAddresses = userData.invalidAddresses
   }
 
-  func addNewAddress(userInput: String) {
-    let geoCoder = CLGeocoder()
-    geoCoder.geocodeAddressString(userInput) { (placemarkers, error) in
-      let insertAddressInUnknown = {
+  private func addNewAddress(userInput: String) {
+    Location.coordinates(from: userInput) { location in
+      guard let location = location else {
         let newAddress = Address()
         newAddress.rawValue = userInput
         self.invalidAddresses.insert(newAddress, at: 0)
         self.table.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
         self.save()
-      }
-
-      if let error = error {
-        insertAddressInUnknown()
-      } else {
-        guard let location = placemarkers?.first?.location else { return insertAddressInUnknown() }
-        self.fetchWeather(location: location.coordinate) { weather in
-          let newAddress = Address()
-          newAddress.rawValue = userInput
-          newAddress.coordinates = location.coordinate
-          newAddress.weather = weather
-          self.validAddresses.insert(newAddress, at: 0)
-          self.table.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-          self.save()
-        }
-      }
-    }
-  }
-
-  func fetchWeather(location: CLLocationCoordinate2D, completion: @escaping (Weather) -> Void) {
-    var queryItems =
-      URLComponents(url: URL(string: "www.weather.com/")!, resolvingAgainstBaseURL: false)!
-    queryItems.queryItems = [
-      URLQueryItem(name: "long", value: String(location.longitude)),
-      URLQueryItem(name: "lat", value: String(location.latitude)),
-    ]
-    let url = queryItems.url!
-    let urlSession = injectURLSession()
-    urlSession.dataTask(with: URLRequest(url: url)) { (data, _, error) in
-      if let error = error {
-        print("something went wrong", error)
         return
       }
 
-      guard let data = data else { return }
-      let weatherData = try! JSONDecoder().decode(WeatherData.self, from: data)
-      completion(
-        Weather(
-          temperature: CGFloat(weatherData.temperature),
-          icon: WeatherIcon(name: weatherData.rawIcon, image: UIImage(named: weatherData.rawIcon)!)
-        )
-      )
-    }.resume()
+      Networking.fetchWeather(location: location.coordinate) { weather in
+        let newAddress = Address()
+        newAddress.rawValue = userInput
+        newAddress.coordinates = location.coordinate
+        newAddress.weather = weather
+        self.validAddresses.insert(newAddress, at: 0)
+        self.table.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+        self.save()
+      }
+    }
   }
 }
 
