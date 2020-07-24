@@ -13,7 +13,7 @@ Here are projects that are setup in a way that leaves room for improvement. This
 
 The sole purpose of sharing what you know is to provide different approaches to solve common challenges like:
 - designing the network layer
-- designing the presistent layer
+- designing the persistence layer
 - using protocols to hide implementation
 - update the UI when data models change
 - how to layout the UI (use xib, storyboards, or only code)
@@ -22,6 +22,8 @@ For each project:
 - use only first-party tools
 - do not add or change any features
 - add, remove as many files, lines of code as you want
+- introduce new things (generic network layer)
+- copy and paste from your other projects
 - comment, write unit or UI tests
 
 # Projects
@@ -41,7 +43,11 @@ For each project:
    - Set the **base repository** to *LinnierGames/My-Sample-App*
    - Set the **base** to *master*
    - Set the **head repository** to *<your github username>/My-Sample-App*
-   - Set the **compare** to *master*
-1. Post your PR in the MakeSchool group and share the love :D
+   - Set the **compare** to *weather-app*
+1. In the dscription of your PR, mention:
+   - What parts did you change (how UI is laid out, networking layer, etc)
+   - What did you introduce (new services, used Combine framework)
+   - What did you leave out but would love to change
+1. Send your PR and post a link in the MakeSchool group and share the love :D
 
 ps: I'm open to any and all suggestions on how to best help others see what industry level code looks like
