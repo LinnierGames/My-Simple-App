@@ -113,20 +113,10 @@
 		E100AF1824C682F6007268AE /* My Simple App */ = {
 			isa = PBXGroup;
 			children = (
-				E100AF1924C682F6007268AE /* AppDelegate.swift */,
-				E100AF1B24C682F6007268AE /* SceneDelegate.swift */,
-				E100AF1D24C682F6007268AE /* ViewController.swift */,
-				E100AF5124CA8DA8007268AE /* WeatherModels.swift */,
-				E100AF5324CA8E39007268AE /* DataStore.swift */,
-				E100AF5724CA9316007268AE /* Location.swift */,
-				E100AF5524CA92FC007268AE /* Networking.swift */,
-				E100AF4924C68D90007268AE /* WeatherTableViewCell.swift */,
-				E100AF4B24C68DD1007268AE /* UnknownTableViewCell.swift */,
+				E100AF5924CA9C27007268AE /* Application */,
+				E100AF5A24CA9C34007268AE /* Business Logic */,
+				E100AF5B24CA9C46007268AE /* Supporting Files */,
 				E100AF4D24C6A4FA007268AE /* URLSession+Fake.swift */,
-				E100AF1F24C682F6007268AE /* Main.storyboard */,
-				E100AF2224C682F7007268AE /* Assets.xcassets */,
-				E100AF2424C682F7007268AE /* LaunchScreen.storyboard */,
-				E100AF2724C682F7007268AE /* Info.plist */,
 			);
 			path = "My Simple App";
 			sourceTree = "<group>";
@@ -147,6 +137,40 @@
 				E100AF3D24C682F8007268AE /* Info.plist */,
 			);
 			path = "My Simple AppUITests";
+			sourceTree = "<group>";
+		};
+		E100AF5924CA9C27007268AE /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				E100AF1924C682F6007268AE /* AppDelegate.swift */,
+				E100AF1B24C682F6007268AE /* SceneDelegate.swift */,
+				E100AF1D24C682F6007268AE /* ViewController.swift */,
+				E100AF4924C68D90007268AE /* WeatherTableViewCell.swift */,
+				E100AF4B24C68DD1007268AE /* UnknownTableViewCell.swift */,
+				E100AF1F24C682F6007268AE /* Main.storyboard */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		E100AF5A24CA9C34007268AE /* Business Logic */ = {
+			isa = PBXGroup;
+			children = (
+				E100AF5124CA8DA8007268AE /* WeatherModels.swift */,
+				E100AF5324CA8E39007268AE /* DataStore.swift */,
+				E100AF5724CA9316007268AE /* Location.swift */,
+				E100AF5524CA92FC007268AE /* Networking.swift */,
+			);
+			path = "Business Logic";
+			sourceTree = "<group>";
+		};
+		E100AF5B24CA9C46007268AE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E100AF2224C682F7007268AE /* Assets.xcassets */,
+				E100AF2424C682F7007268AE /* LaunchScreen.storyboard */,
+				E100AF2724C682F7007268AE /* Info.plist */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

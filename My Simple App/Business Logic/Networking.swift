@@ -10,9 +10,14 @@ import UIKit
 import CoreLocation
 
 class Networking {
-  static func fetchWeather(location: CLLocationCoordinate2D, completion: @escaping (Weather) -> Void) {
-    var queryItems =
-      URLComponents(url: URL(string: "www.weather.com/")!, resolvingAgainstBaseURL: false)!
+  static func fetchWeather(
+    location: CLLocationCoordinate2D,
+    completion: @escaping (Weather) -> Void
+  ) {
+    var queryItems = URLComponents(
+      url: URL(string: "https://www.weather.com/weather")!,
+      resolvingAgainstBaseURL: false
+    )!
     queryItems.queryItems = [
       URLQueryItem(name: "long", value: String(location.longitude)),
       URLQueryItem(name: "lat", value: String(location.latitude)),
