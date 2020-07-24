@@ -12,6 +12,15 @@ func injectURLSession() -> URLSession {
   return SeededURLSession()
 }
 
+/// Fake networking class that will return random weather data.
+///
+/// ```
+/// let url = URL(string: "https://www.weather.com/weather?long=45&lat=45")!
+/// let urlSession = injectURLSession()
+/// urlSession.dataTask(with: URLRequest(url: url)) {
+///   ...
+/// }
+/// ```
 class SeededURLSession: URLSession {
   override func dataTask(
     with url: URL,
@@ -109,6 +118,24 @@ class SeededDataTask: URLSessionDataTask {
   ]
 
   init(request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    guard
+      let url = request.url,
+      let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+    else {
+      fatalError("failed to create components from url")
+    }
+
+    assert(components.scheme == "https")
+    assert(components.host == "www.weather.com")
+    assert(components.path == "/weather")
+
+    guard let items = components.queryItems, items.count == 2 else {
+      fatalError("missing query items")
+    }
+    
+    assert(items.contains(where: { $0.name == "long" }))
+    assert(items.contains(where: { $0.name == "lat" }))
+
     self.request = request
     self.completion = completion
   }
