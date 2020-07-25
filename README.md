@@ -1,6 +1,8 @@
-# Share what you know with some peeps!
+# Welcome to the repo of repos!
 
-Here are projects that are setup in a way that leaves room for improvement. This can include:
+Here are projects that are setup in a way that leaves room for improvement and get feedback on your changes
+
+This can include:
 - readable code
 - separation of concern
 - UI is responsive
@@ -11,12 +13,26 @@ Here are projects that are setup in a way that leaves room for improvement. This
 - depdancy injection
 - testable code
 
-The sole purpose of sharing what you know is to provide different approaches to solve common challenges like:
+### You a student?
+
+- This is a way you can take the things you know and practice refactoring an existing code base
+- Get feedback from folks in industry on your PRs
+
+### You got a job?
+
+Share with students what you've learned in industry, provide different approaches to solve common challenges
+
+### What else could you change
+
 - designing the network layer
 - designing the persistence layer
 - using protocols to hide implementation
 - update the UI when data models change
 - how to layout the UI (use xib, storyboards, or only code)
+
+# The Projects
+
+Each project is in its own branch (master is an empty xcode project)
 
 For each project:
 - use only first-party tools
@@ -26,9 +42,7 @@ For each project:
 - copy and paste from your other projects
 - comment, write unit or UI tests
 
-# Projects
-
-### Weather app `weather-app`
+### Weather app
 - view the weather in a table view
 - user can enter an address
 - each address and weather is persisted
