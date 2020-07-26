@@ -10,14 +10,14 @@ import Foundation
 import CoreLocation
 
 class Location {
-  static func coordinates(from address: String, completion: @escaping (CLLocation?) -> Void) {
+  static func placemarker(from address: String, completion: @escaping (CLPlacemark?) -> Void) {
     let geoCoder = CLGeocoder()
     geoCoder.geocodeAddressString(address) { (placemarkers, error) in
       if let error = error {
         completion(nil)
       } else {
-        guard let location = placemarkers?.first?.location else { return completion(nil) }
-        completion(location)
+        guard let placemarker = placemarkers?.first else { return completion(nil) }
+        completion(placemarker)
       }
     }
   }
