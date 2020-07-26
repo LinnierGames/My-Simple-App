@@ -48,8 +48,8 @@ class ViewController: UIViewController {
   }
 
   private func addNewAddress(userInput: String) {
-    Location.coordinates(from: userInput) { location in
-      guard let location = location else {
+    Location.placemarker(from: userInput) { placemarker in
+      guard let location = placemarker?.location else {
         let newAddress = Address()
         newAddress.rawValue = userInput
         self.invalidAddresses.insert(newAddress, at: 0)
@@ -57,10 +57,10 @@ class ViewController: UIViewController {
         self.save()
         return
       }
-
+      
       Networking.fetchWeather(location: location.coordinate) { weather in
         let newAddress = Address()
-        newAddress.rawValue = userInput
+        newAddress.rawValue = placemarker?.name
         newAddress.coordinates = location.coordinate
         newAddress.weather = weather
         self.validAddresses.insert(newAddress, at: 0)
