@@ -58,14 +58,15 @@ For each project:
    - do not clone the repo from LinnierGames otherwise, you won't have permission to push your commits
    - do not create a new branch
 1. push the branch to your GitHub and **from your GitHub** make a Pull request as such:
-   - Set the **base repository** to *LinnierGames/My-Sample-App*
-   - Set the **base** to *weather-app*
-   - Set the **head repository** to *<your GitHub username>/My-Sample-App*
-   - Set the **compare** to *weather-app*
+   - set the **base repository** to *LinnierGames/My-Sample-App*
+   - set the **base** to *weather-app*
+   - set the **head repository** to *<your GitHub username>/My-Sample-App*
+   - set the **compare** to *weather-app*
 1. in the description of your PR, mention:
-   - What parts did you change (e.g. removed storyboards, made networking layer generic using protocols, etc.)
-   - What did you introduce (e.g. new services, used Combine framework)
-   - What did you leave out but would love to change (e.g. refactor using SwiftUI)
+   - what parts did you change (e.g. removed storyboards, made networking layer generic using protocols, etc.)
+   - what did you introduce (e.g. new services, used Combine framework)
+   - what did you leave out but would love to change (e.g. refactor using SwiftUI)
+   - add/create labels to your PR
 1. send your PR and post a link in the [MakeSchool group](https://www.facebook.com/groups/2046538988893010) on Facebook, or on MakeSchool's [#resources channel](https://app.slack.com/client/TBQLGLFL7/CR23T2BHV) on Slack and share the love :D
 
 - feel free to separate different refactorings in multiple PRs (e.g. one PR for the networking layer refactor and another PR for laying UI using code instead of Interface Builder)
