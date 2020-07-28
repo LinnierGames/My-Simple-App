@@ -10,28 +10,21 @@ import UIKit
 import CoreLocation
 
 class ViewController: UIViewController {
-  @IBOutlet weak var table: UITableView!
+  var table: UITableView = {
+    let table = UITableView()
+    table.backgroundColor = .white
+    table.translatesAutoresizingMaskIntoConstraints = false
+    return table
+  }()
 
   var validAddresses = [Address]()
   var invalidAddresses = [Address]()
-
-  @IBAction func pressAddAddress(_ sender: Any) {
-    let alertNewAddress = UIAlertController(
-      title: "New Address", message: "enter a new address", preferredStyle: .alert)
-    alertNewAddress.addTextField { textField in
-      textField.textContentType = .addressCityAndState
-      textField.placeholder = "e.g. Santa Rosa, CA"
-    }
-    let saveButton = UIAlertAction(title: "Save", style: .default) { _ in
-      self.addNewAddress(userInput: alertNewAddress.textFields![0].text ?? "")
-    }
-    alertNewAddress.addAction(saveButton)
-    alertNewAddress.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-    present(alertNewAddress, animated: true)
-  }
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    setupViews()
+    setupLayout()
 
     self.load()
     self.table.reloadData()
@@ -68,6 +61,37 @@ class ViewController: UIViewController {
         self.save()
       }
     }
+  }
+  
+  @objc func pressAddAddress(_ sender: Any) {
+    let alertNewAddress = UIAlertController(
+      title: "New Address", message: "enter a new address", preferredStyle: .alert)
+    alertNewAddress.addTextField { textField in
+      textField.textContentType = .addressCityAndState
+      textField.placeholder = "e.g. Santa Rosa, CA"
+    }
+    let saveButton = UIAlertAction(title: "Save", style: .default) { _ in
+      self.addNewAddress(userInput: alertNewAddress.textFields![0].text ?? "")
+    }
+    alertNewAddress.addAction(saveButton)
+    alertNewAddress.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+    present(alertNewAddress, animated: true)
+  }
+  
+  private func setupViews() {
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pressAddAddress(_:)))
+    table.delegate = self
+    table.dataSource = self
+    view.addSubview(table)
+  }
+  
+  private func setupLayout() {
+    NSLayoutConstraint.activate([
+      table.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      table.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+      table.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      table.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+    ])
   }
 }
 
