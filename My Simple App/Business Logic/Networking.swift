@@ -20,7 +20,7 @@ class Networking {
     )!
     queryItems.queryItems = [
       URLQueryItem(name: "long", value: String(location.longitude)),
-      URLQueryItem(name: "lat", value: String(location.latitude)),
+      URLQueryItem(name: "lat", value: String(location.latitude))
     ]
     let url = queryItems.url!
     let urlSession = injectURLSession()
@@ -30,8 +30,11 @@ class Networking {
         return
       }
 
-      guard let data = data else { return }
-      let weatherData = try! JSONDecoder().decode(WeatherData.self, from: data)
+      guard
+        let data = data,
+        let weatherData = try? JSONDecoder().decode(WeatherData.self, from: data)
+      else { return }
+
       completion(
         Weather(
           temperature: CGFloat(weatherData.temperature),
