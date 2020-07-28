@@ -9,11 +9,21 @@
 import UIKit
 import CoreLocation
 
+protocol CellIdentifiable {
+  static var identifier: String { get }
+}
+
 class ViewController: UIViewController {
   var table: UITableView = {
     let table = UITableView()
     table.backgroundColor = .white
+    // When you're writing programatic UI using anchors, this property has to
+    //   be disabled on all views. At larger dev shops, there will likely be some sort
+    //   of view framework and system views (eg UILabel, UIButton) will not be used
+    //   directly. The wrapper views will disable this property for you in that case.
     table.translatesAutoresizingMaskIntoConstraints = false
+    table.register(WeatherTableViewCell.self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
+    table.register(UnknownTableViewCell.self, forCellReuseIdentifier: UnknownTableViewCell.identifier)
     return table
   }()
 
@@ -126,7 +136,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     switch indexPath.section {
     case 0:
       let cell = tableView.dequeueReusableCell(
-        withIdentifier: "weather cell", for: indexPath
+        withIdentifier: WeatherTableViewCell.identifier, for: indexPath
       ) as! WeatherTableViewCell
 
       let address = validAddresses[indexPath.row]
@@ -137,7 +147,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
       return cell
     case 1:
       let cell = tableView.dequeueReusableCell(
-        withIdentifier: "unknown cell", for: indexPath
+        withIdentifier: UnknownTableViewCell.identifier, for: indexPath
       ) as! UnknownTableViewCell
 
       let address = invalidAddresses[indexPath.row]
