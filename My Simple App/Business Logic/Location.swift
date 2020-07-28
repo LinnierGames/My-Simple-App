@@ -13,7 +13,7 @@ class Location {
   static func coordinates(from address: String, completion: @escaping (CLLocation?) -> Void) {
     let geoCoder = CLGeocoder()
     geoCoder.geocodeAddressString(address) { (placemarkers, error) in
-      if let error = error {
+      if error != nil {
         completion(nil)
       } else {
         guard let location = placemarkers?.first?.location else { return completion(nil) }

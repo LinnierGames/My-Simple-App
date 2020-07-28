@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2499790E24CFD81B00AAD395 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2499790D24CFD81B00AAD395 /* Main.storyboard */; };
 		E100AF1A24C682F6007268AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF1924C682F6007268AE /* AppDelegate.swift */; };
 		E100AF1C24C682F6007268AE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF1B24C682F6007268AE /* SceneDelegate.swift */; };
 		E100AF1E24C682F6007268AE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF1D24C682F6007268AE /* ViewController.swift */; };
@@ -42,7 +41,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2499790D24CFD81B00AAD395 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../../../.Trash/Main.storyboard; sourceTree = "<group>"; };
 		E100AF1624C682F6007268AE /* My Simple App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Simple App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E100AF1924C682F6007268AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E100AF1B24C682F6007268AE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 				E100AF2224C682F7007268AE /* Assets.xcassets */,
 				E100AF2424C682F7007268AE /* LaunchScreen.storyboard */,
 				E100AF2724C682F7007268AE /* Info.plist */,
-				2499790D24CFD81B00AAD395 /* Main.storyboard */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -277,7 +274,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2499790E24CFD81B00AAD395 /* Main.storyboard in Resources */,
 				E100AF2624C682F7007268AE /* LaunchScreen.storyboard in Resources */,
 				E100AF2324C682F7007268AE /* Assets.xcassets in Resources */,
 			);
