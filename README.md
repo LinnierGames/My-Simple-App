@@ -13,6 +13,10 @@ Some improvements can include:
 - dependency injection
 - testable code
 
+:warning: **Note**: PRs are not intended to be merged since the PR would instill a certain way of doing things (use stack views for everything, use generics for decoding networking models, etc). Instead, PRs will be left open for others to learn and provide feedback
+
+If you'd like for your PR to be merged into a project (start with programic code since it's basically industry standard to not use storyboards), send your PR with the **Amend Sample Project** label attached. More on this below
+
 ### You a student making apps?
 
 - this is a way you can take the things you know and practice refactoring an existing codebase. And,
@@ -51,6 +55,22 @@ For each project:
 - invalid addresses are displayed in a separate section
 - **Note**: the weather data is mocked locally through a custom URLSession class [here](https://github.com/LinnierGames/My-Simple-App/blob/weather-app/My%20Simple%20App/URLSession%2BFake.swift)
 
+### Todo app
+
+- TBD
+
+### Chat app
+
+- TBD
+
+### Got an idea for a project?
+
+Reach out to me on LinkedIn and we can chat about creating a branch with the project so you can upload your project. The project idea doesn't have to be iOS. It could be:
+
+- Express backend API
+- web app writen with Angular
+- even an Android app 🙃
+
 # How to submit your revision
 
 1. fork this repo to your GitHub
@@ -72,6 +92,13 @@ For each project:
 - feel free to separate different refactorings in multiple PRs (e.g. one PR for the networking layer refactor and another PR for laying UI using code instead of Interface Builder)
 - feel free to refactor the whole project into one PR! Just be sure to include what you've changed in the description 😊
 
+# How to propose an amend PR to a project
+
+Got an idea on how a project should start out with? Like no storyboards, or non-private methods should have docs, or even no force unwrapping? If so, follow the steps in **How to submit your revision** and add the **Amend Sample Project** label to your PR
+
+Your PR should not:
+1. introduce something that can be deemed as not common iOS knowledge
+1. use a Swift or iOS library/framework/tool that just came out within the month
+1. perform operations multi-threaded
+
 ps: I'm open to any and all suggestions on how to best help others see what industry level code looks like
-
-
