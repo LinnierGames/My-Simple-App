@@ -89,7 +89,7 @@ Reach out to me on LinkedIn and we can chat about creating a branch with the pro
    - add/create labels to your PR
 1. send your PR and post a link in the [MakeSchool group](https://www.facebook.com/groups/2046538988893010) on Facebook, or on MakeSchool's [#resources channel](https://app.slack.com/client/TBQLGLFL7/CR23T2BHV) on Slack and share the love :D
 
-- feel free to separate different refactorings in multiple PRs (e.g. one PR for the networking layer refactor and another PR for laying UI using code instead of Interface Builder)
+- feel free to separate different refactorings in multiple PRs (e.g. one PR for the networking layer refactor and another PR for laying UI using code instead of Interface Builder) You could even chain the branches and PRs to reuse your work from a pervious PR
 - feel free to refactor the whole project into one PR! Just be sure to include what you've changed in the description 😊
 
 # How to propose an amend PR to a project
