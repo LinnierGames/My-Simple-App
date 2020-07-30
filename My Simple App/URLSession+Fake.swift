@@ -132,7 +132,7 @@ class SeededDataTask: URLSessionDataTask {
     guard let items = components.queryItems, items.count == 2 else {
       fatalError("missing query items")
     }
-    
+
     assert(items.contains(where: { $0.name == "long" }))
     assert(items.contains(where: { $0.name == "lat" }))
 
@@ -146,5 +146,3 @@ class SeededDataTask: URLSessionDataTask {
     completion(data, response, nil)
   }
 }
-
-
