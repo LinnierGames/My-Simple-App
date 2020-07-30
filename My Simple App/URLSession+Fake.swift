@@ -141,7 +141,8 @@ class SeededDataTask: URLSessionDataTask {
   }
 
   override func resume() {
-    let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
+    let response =
+      HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
     let data = fakeResponses.randomElement()!.data(using: .utf8)
     completion(data, response, nil)
   }
