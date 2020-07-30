@@ -16,10 +16,10 @@ struct UserWeather {
 
 class DataStore {
   static func load() -> UserWeather {
-    let ud = UserDefaults.standard
-    
+    let userDefaults = UserDefaults.standard
+
     var validAddresses = [Address]()
-    if let validAddressObjects = ud.array(
+    if let validAddressObjects = userDefaults.array(
       forKey: "user-addresses"
     ) as? [[String: Any]] {
       validAddresses = validAddressObjects.compactMap { object in
@@ -46,7 +46,7 @@ class DataStore {
     }
 
     var invalidAddresses = [Address]()
-    if let invalidAddressObjects = ud.array(
+    if let invalidAddressObjects = userDefaults.array(
       forKey: "invalid-addresses"
     ) as? [[String: Any]] {
       invalidAddresses = invalidAddressObjects.compactMap { object in
@@ -65,23 +65,23 @@ class DataStore {
   }
 
   static func save(validAddresses: [Address], invalidAddresses: [Address]) {
-    let ud = UserDefaults.standard
+    let userDefaults = UserDefaults.standard
     let addressObjects = validAddresses.map { address in
       return [
         "address": address.rawValue!,
         "latitude": address.coordinates!.latitude,
         "longitude": address.coordinates!.longitude,
-        "temperature" : Double(address.weather!.temperature),
+        "temperature": Double(address.weather!.temperature),
         "raw-icon": address.weather!.icon.name
       ]
     }
-    ud.setValue(addressObjects, forKeyPath: "user-addresses")
+    userDefaults.setValue(addressObjects, forKeyPath: "user-addresses")
     let invalidAddressObjects = invalidAddresses.map { address in
       return [
-        "address": address.rawValue!,
+        "address": address.rawValue!
       ]
     }
-    ud.setValue(invalidAddressObjects, forKeyPath: "invalid-addresses")
-    ud.synchronize()
+    userDefaults.setValue(invalidAddressObjects, forKeyPath: "invalid-addresses")
+    userDefaults.synchronize()
   }
 }

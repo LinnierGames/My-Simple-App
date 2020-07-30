@@ -132,7 +132,7 @@ class SeededDataTask: URLSessionDataTask {
     guard let items = components.queryItems, items.count == 2 else {
       fatalError("missing query items")
     }
-    
+
     assert(items.contains(where: { $0.name == "long" }))
     assert(items.contains(where: { $0.name == "lat" }))
 
@@ -141,10 +141,9 @@ class SeededDataTask: URLSessionDataTask {
   }
 
   override func resume() {
-    let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
+    let response =
+      HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
     let data = fakeResponses.randomElement()!.data(using: .utf8)
     completion(data, response, nil)
   }
 }
-
-
