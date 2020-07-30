@@ -33,7 +33,9 @@ class Networking {
       guard
         let data = data,
         let weatherData = try? JSONDecoder().decode(WeatherData.self, from: data)
-      else { return }
+      else {
+        return
+      }
 
       completion(
         Weather(

@@ -101,9 +101,13 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     switch indexPath.section {
     case 0:
-      guard let cell = tableView.dequeueReusableCell(
-        withIdentifier: "weather cell", for: indexPath
-      ) as? WeatherTableViewCell else { fatalError() }
+      guard
+        let cell = tableView.dequeueReusableCell(
+          withIdentifier: "weather cell", for: indexPath
+        ) as? WeatherTableViewCell
+      else {
+        fatalError()
+      }
 
       let address = validAddresses[indexPath.row]
       cell.titleLabel.text = address.rawValue
@@ -112,9 +116,13 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 
       return cell
     case 1:
-      guard let cell = tableView.dequeueReusableCell(
-        withIdentifier: "unknown cell", for: indexPath
-      ) as? UnknownTableViewCell else { fatalError() }
+      guard
+        let cell = tableView.dequeueReusableCell(
+          withIdentifier: "unknown cell", for: indexPath
+        ) as? UnknownTableViewCell
+      else {
+        fatalError()
+      }
 
       let address = invalidAddresses[indexPath.row]
       cell.titleLabel.text = address.rawValue
