@@ -30,12 +30,19 @@ class ViewController: UIViewController {
     present(alertNewAddress, animated: true)
   }
 
+  // MARK: - Override UIViewController
+
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    self.table.register(WeatherTableViewCell.self)
+    self.table.register(UnknownTableViewCell.self)
 
     self.load()
     self.table.reloadData()
   }
+
+  // MARK: - Private
 
   private func save() {
     DataStore.save(validAddresses: validAddresses, invalidAddresses: invalidAddresses)
@@ -101,34 +108,19 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     switch indexPath.section {
     case 0:
-      guard
-        let cell = tableView.dequeueReusableCell(
-          withIdentifier: "weather cell", for: indexPath
-        ) as? WeatherTableViewCell
-      else {
-        fatalError()
-      }
-
+      let cell = tableView.dequeueReusableCell(for: indexPath) as WeatherTableViewCell
       let address = validAddresses[indexPath.row]
-      cell.titleLabel.text = address.rawValue
-      cell.weatherLabel.text = "Temperature: \(address.weather?.temperature ?? 0)"
-      cell.iconImageView.image = address.weather?.icon.image
+      cell.configure(address)
 
       return cell
     case 1:
-      guard
-        let cell = tableView.dequeueReusableCell(
-          withIdentifier: "unknown cell", for: indexPath
-        ) as? UnknownTableViewCell
-      else {
-        fatalError()
-      }
-
+      let cell = tableView.dequeueReusableCell(for: indexPath) as UnknownTableViewCell
       let address = invalidAddresses[indexPath.row]
-      cell.titleLabel.text = address.rawValue
+      cell.textLabel?.text = address.rawValue
 
       return cell
     default:
+      assertionFailure("Unexpected indexPath, \(indexPath)")
       return UITableViewCell()
     }
   }
