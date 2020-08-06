@@ -9,7 +9,7 @@
 import UIKit
 
 class WeatherViewController: UIViewController {
-  private let viewModel = ViewModel()
+  private let viewModel = WeatherViewModel()
 
   @IBOutlet weak var table: UITableView!
 
