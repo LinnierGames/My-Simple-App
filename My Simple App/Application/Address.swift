@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CoreLocation
+import CoreLocation // TODO: Remove this dependency.
 
 class Address {
   var rawValue: String?

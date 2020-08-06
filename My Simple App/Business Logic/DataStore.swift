@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CoreLocation
+import CoreLocation // TODO: Remove this dependency.
 
 struct WeatherData: Decodable {
   let temperature: Float
@@ -25,6 +25,8 @@ struct UserWeather {
 }
 
 class DataStore {
+  // TODO: Convert into a service.
+
   static func load() -> UserWeather {
     let userDefaults = UserDefaults.standard
 
