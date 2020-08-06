@@ -13,16 +13,28 @@ func injectLocationService() -> LocationService {
   return LocationServiceImpl()
 }
 
-typealias InternalGeocoderFactory = () -> InternalGeocoder
+class InternalGeocoderFactory {
+  private let factory: () -> InternalGeocoder
+  init(factory: @escaping () -> InternalGeocoder) {
+    self.factory = factory
+  }
+
+  func make() -> InternalGeocoder {
+    return self.factory()
+  }
+}
 
 class LocationServiceImpl: LocationService {
   private let geocoderFactory: InternalGeocoderFactory
-  init(geocoderFactory: @escaping InternalGeocoderFactory = { injectInternalGeocoder() }) {
+
+  init(
+    geocoderFactory: InternalGeocoderFactory = InternalGeocoderFactory { injectInternalGeocoder() }
+  ) {
     self.geocoderFactory = geocoderFactory
   }
 
   func info(from address: String, completion: @escaping (Result<LocationInfo, Error>) -> Void) {
-    let geoCoder = geocoderFactory()
+    let geoCoder = self.geocoderFactory.make()
     geoCoder.geocodeAddressString(address) { (placemarkers, error) in
       if let error = error {
         return completion(.failure(error))
