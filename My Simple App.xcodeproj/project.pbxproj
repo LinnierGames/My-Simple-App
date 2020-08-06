@@ -18,12 +18,12 @@
 		E100AF4A24C68D90007268AE /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF4924C68D90007268AE /* WeatherTableViewCell.swift */; };
 		E100AF4C24C68DD1007268AE /* UnknownTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF4B24C68DD1007268AE /* UnknownTableViewCell.swift */; };
 		E100AF4E24C6A4FA007268AE /* URLSession+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF4D24C6A4FA007268AE /* URLSession+Fake.swift */; };
-		E100AF5224CA8DA8007268AE /* WeatherModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF5124CA8DA8007268AE /* WeatherModels.swift */; };
 		E100AF5424CA8E39007268AE /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF5324CA8E39007268AE /* DataStore.swift */; };
 		E100AF5624CA92FC007268AE /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF5524CA92FC007268AE /* Networking.swift */; };
 		E100AF5824CA9316007268AE /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF5724CA9316007268AE /* Location.swift */; };
 		E12A340624DA6431000BA515 /* UITableView+MySimpleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12A340524DA6431000BA515 /* UITableView+MySimpleApp.swift */; };
 		E12A340824DB8D63000BA515 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12A340724DB8D63000BA515 /* WeatherViewModel.swift */; };
+		E12A340A24DB8FC7000BA515 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12A340924DB8FC7000BA515 /* Address.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,12 +61,12 @@
 		E100AF4924C68D90007268AE /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
 		E100AF4B24C68DD1007268AE /* UnknownTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownTableViewCell.swift; sourceTree = "<group>"; };
 		E100AF4D24C6A4FA007268AE /* URLSession+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Fake.swift"; sourceTree = "<group>"; };
-		E100AF5124CA8DA8007268AE /* WeatherModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModels.swift; sourceTree = "<group>"; };
 		E100AF5324CA8E39007268AE /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		E100AF5524CA92FC007268AE /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		E100AF5724CA9316007268AE /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		E12A340524DA6431000BA515 /* UITableView+MySimpleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+MySimpleApp.swift"; sourceTree = "<group>"; };
 		E12A340724DB8D63000BA515 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
+		E12A340924DB8FC7000BA515 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +149,7 @@
 				E100AF1924C682F6007268AE /* AppDelegate.swift */,
 				E100AF1B24C682F6007268AE /* SceneDelegate.swift */,
 				E12A340724DB8D63000BA515 /* WeatherViewModel.swift */,
+				E12A340924DB8FC7000BA515 /* Address.swift */,
 				E100AF1D24C682F6007268AE /* WeatherViewController.swift */,
 				E100AF4924C68D90007268AE /* WeatherTableViewCell.swift */,
 				E100AF4B24C68DD1007268AE /* UnknownTableViewCell.swift */,
@@ -161,7 +162,6 @@
 		E100AF5A24CA9C34007268AE /* Business Logic */ = {
 			isa = PBXGroup;
 			children = (
-				E100AF5124CA8DA8007268AE /* WeatherModels.swift */,
 				E100AF5324CA8E39007268AE /* DataStore.swift */,
 				E100AF5724CA9316007268AE /* Location.swift */,
 				E100AF5524CA92FC007268AE /* Networking.swift */,
@@ -334,8 +334,8 @@
 			files = (
 				E100AF4A24C68D90007268AE /* WeatherTableViewCell.swift in Sources */,
 				E100AF5424CA8E39007268AE /* DataStore.swift in Sources */,
+				E12A340A24DB8FC7000BA515 /* Address.swift in Sources */,
 				E100AF5824CA9316007268AE /* Location.swift in Sources */,
-				E100AF5224CA8DA8007268AE /* WeatherModels.swift in Sources */,
 				E100AF5624CA92FC007268AE /* Networking.swift in Sources */,
 				E100AF1E24C682F6007268AE /* WeatherViewController.swift in Sources */,
 				E100AF4C24C68DD1007268AE /* UnknownTableViewCell.swift in Sources */,
