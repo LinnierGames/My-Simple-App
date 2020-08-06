@@ -9,6 +9,16 @@
 import UIKit
 import CoreLocation
 
+struct WeatherData: Decodable {
+  let temperature: Float
+  let rawIcon: String
+
+  enum CodingKeys: String, CodingKey {
+    case temperature
+    case rawIcon = "raw-icon"
+  }
+}
+
 struct UserWeather {
   let validAddresses: [Address]
   let invalidAddresses: [Address]
