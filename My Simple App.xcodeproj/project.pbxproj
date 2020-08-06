@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		E100AF1A24C682F6007268AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF1924C682F6007268AE /* AppDelegate.swift */; };
 		E100AF1C24C682F6007268AE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF1B24C682F6007268AE /* SceneDelegate.swift */; };
-		E100AF1E24C682F6007268AE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF1D24C682F6007268AE /* ViewController.swift */; };
+		E100AF1E24C682F6007268AE /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF1D24C682F6007268AE /* WeatherViewController.swift */; };
 		E100AF2124C682F6007268AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E100AF1F24C682F6007268AE /* Main.storyboard */; };
 		E100AF2324C682F7007268AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E100AF2224C682F7007268AE /* Assets.xcassets */; };
 		E100AF2624C682F7007268AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E100AF2424C682F7007268AE /* LaunchScreen.storyboard */; };
@@ -23,6 +23,7 @@
 		E100AF5624CA92FC007268AE /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF5524CA92FC007268AE /* Networking.swift */; };
 		E100AF5824CA9316007268AE /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF5724CA9316007268AE /* Location.swift */; };
 		E12A340624DA6431000BA515 /* UITableView+MySimpleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12A340524DA6431000BA515 /* UITableView+MySimpleApp.swift */; };
+		E12A340824DB8D63000BA515 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12A340724DB8D63000BA515 /* WeatherViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +47,7 @@
 		E100AF1624C682F6007268AE /* My Simple App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Simple App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E100AF1924C682F6007268AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E100AF1B24C682F6007268AE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E100AF1D24C682F6007268AE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E100AF1D24C682F6007268AE /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		E100AF2024C682F6007268AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E100AF2224C682F7007268AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E100AF2524C682F7007268AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -65,6 +66,7 @@
 		E100AF5524CA92FC007268AE /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		E100AF5724CA9316007268AE /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		E12A340524DA6431000BA515 /* UITableView+MySimpleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+MySimpleApp.swift"; sourceTree = "<group>"; };
+		E12A340724DB8D63000BA515 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,7 +148,8 @@
 			children = (
 				E100AF1924C682F6007268AE /* AppDelegate.swift */,
 				E100AF1B24C682F6007268AE /* SceneDelegate.swift */,
-				E100AF1D24C682F6007268AE /* ViewController.swift */,
+				E12A340724DB8D63000BA515 /* WeatherViewModel.swift */,
+				E100AF1D24C682F6007268AE /* WeatherViewController.swift */,
 				E100AF4924C68D90007268AE /* WeatherTableViewCell.swift */,
 				E100AF4B24C68DD1007268AE /* UnknownTableViewCell.swift */,
 				E12A340524DA6431000BA515 /* UITableView+MySimpleApp.swift */,
@@ -334,11 +337,12 @@
 				E100AF5824CA9316007268AE /* Location.swift in Sources */,
 				E100AF5224CA8DA8007268AE /* WeatherModels.swift in Sources */,
 				E100AF5624CA92FC007268AE /* Networking.swift in Sources */,
-				E100AF1E24C682F6007268AE /* ViewController.swift in Sources */,
+				E100AF1E24C682F6007268AE /* WeatherViewController.swift in Sources */,
 				E100AF4C24C68DD1007268AE /* UnknownTableViewCell.swift in Sources */,
 				E100AF4E24C6A4FA007268AE /* URLSession+Fake.swift in Sources */,
 				E12A340624DA6431000BA515 /* UITableView+MySimpleApp.swift in Sources */,
 				E100AF1A24C682F6007268AE /* AppDelegate.swift in Sources */,
+				E12A340824DB8D63000BA515 /* WeatherViewModel.swift in Sources */,
 				E100AF1C24C682F6007268AE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
