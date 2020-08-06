@@ -10,6 +10,8 @@ import UIKit
 import CoreLocation
 
 class Networking {
+  // TODO: Convert into a service.
+
   static func fetchWeather(
     location: CLLocationCoordinate2D,
     completion: @escaping (Weather) -> Void

@@ -148,8 +148,8 @@
 			children = (
 				E100AF1924C682F6007268AE /* AppDelegate.swift */,
 				E100AF1B24C682F6007268AE /* SceneDelegate.swift */,
-				E12A340724DB8D63000BA515 /* WeatherViewModel.swift */,
 				E12A340924DB8FC7000BA515 /* Address.swift */,
+				E12A340724DB8D63000BA515 /* WeatherViewModel.swift */,
 				E100AF1D24C682F6007268AE /* WeatherViewController.swift */,
 				E100AF4924C68D90007268AE /* WeatherTableViewCell.swift */,
 				E100AF4B24C68DD1007268AE /* UnknownTableViewCell.swift */,

@@ -10,6 +10,8 @@ import Foundation
 import CoreLocation
 
 class Location {
+  // TODO: Convert into a service.
+
   static func coordinates(from address: String, completion: @escaping (CLLocation?) -> Void) {
     let geoCoder = CLGeocoder()
     geoCoder.geocodeAddressString(address) { (placemarkers, error) in
