@@ -8,43 +8,49 @@
 
 import CoreLocation // TODO: Remove this dependency after refactoring Networking.
 
-enum AddressResult {
-  case validAddress(Address)
-  case invalidAddress(Address)
-  case error(Error)
+protocol WeatherViewModelDelegate: AnyObject {
+  func weatherDidUpdate(_ viewModel: WeatherViewModel)
 }
 
 class WeatherViewModel {
+  weak var delegate: WeatherViewModelDelegate?
+
   private(set) var validAddresses = [Address]()
   private(set) var invalidAddresses = [Address]()
 
   private let locationService: LocationService
+  private let addressStore: AddressStore
+  private let allAddressesResource: AllAddressesResource
 
-  init(locationService: LocationService = injectLocationService()) {
+  init(
+    locationService: LocationService = injectLocationService(),
+    dataStore: AddressStore = injectAddressStore()
+  ) {
     self.locationService = locationService
-    self.load()
+    self.addressStore = dataStore
+    self.allAddressesResource = self.addressStore.addresses()
+
+    self.allAddressesResource.didChangeEvent.add(self, handler: self.populuateAddresses)
+    self.populuateAddresses()
   }
 
-  func addAddress(userInput: String, completion: @escaping (AddressResult) -> Void) {
+  func addAddress(userInput: String) {
     locationService.info(from: userInput) { result in
       switch result {
       case .success(let info):
         let coordinates = CLLocationCoordinate2D(latitude: info.latitude, longitude: info.longitude)
         Networking.fetchWeather(location: coordinates) { weather in
-          let newAddress = Address()
+          var newAddress = Address()
           newAddress.rawValue = info.displayName
-          newAddress.coordinates = coordinates
+          newAddress.latitude = info.latitude
+          newAddress.longitude = info.longitude
           newAddress.weather = weather
-          self.validAddresses.insert(newAddress, at: 0)
-          completion(.validAddress(newAddress))
-          self.save()
+          self.addressStore.store(address: newAddress)
         }
       case .failure:
-        let newAddress = Address()
+        var newAddress = Address()
         newAddress.rawValue = userInput
-        self.invalidAddresses.insert(newAddress, at: 0)
-        completion(.invalidAddress(newAddress))
-        self.save()
+        self.addressStore.store(address: newAddress)
       }
     }
   }
@@ -54,8 +60,8 @@ class WeatherViewModel {
       return assertionFailure("Given index out of range, \(index)")
     }
 
-    self.validAddresses.remove(at: index)
-    self.save()
+    let addressToRemove = self.validAddresses[index]
+    self.addressStore.delete(address: addressToRemove)
   }
 
   func removeInvalidAddress(at index: Int) {
@@ -63,19 +69,25 @@ class WeatherViewModel {
       return assertionFailure("Given index out of range, \(index)")
     }
 
-    self.invalidAddresses.remove(at: index)
-    self.save()
+    let addressToRemove = self.invalidAddresses[index]
+    self.addressStore.delete(address: addressToRemove)
   }
 
   // MARK: - Private
 
-  private func load() {
-    let userData = DataStore.load()
-    self.validAddresses = userData.validAddresses
-    self.invalidAddresses = userData.invalidAddresses
-  }
+  private func populuateAddresses() {
+    var validAddresses = [Address]()
+    var invalidAddresses = [Address]()
+    for address in self.allAddressesResource.resource {
+      if address.weather != nil {
+        validAddresses.append(address)
+      } else {
+        invalidAddresses.append(address)
+      }
+    }
 
-  private func save() {
-    DataStore.save(validAddresses: self.validAddresses, invalidAddresses: self.invalidAddresses)
+    self.validAddresses = validAddresses
+    self.invalidAddresses = invalidAddresses
+    self.delegate?.weatherDidUpdate(self)
   }
 }

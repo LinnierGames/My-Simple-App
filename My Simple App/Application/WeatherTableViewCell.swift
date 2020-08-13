@@ -39,7 +39,7 @@ class WeatherTableViewCell: UITableViewCell {
   func configure(_ address: Address) {
     self.titleLabel.text = address.rawValue
     self.weatherLabel.text = "Temperature: \(address.weather?.temperature ?? 0)"
-    self.iconImageView.image = address.weather?.icon.image
+    self.iconImageView.image = (address.weather?.iconName).flatMap { UIImage(named: $0) }
   }
 
   // MARK: - Private

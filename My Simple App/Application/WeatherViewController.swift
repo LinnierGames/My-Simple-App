@@ -84,7 +84,6 @@ class WeatherViewController: UITableViewController {
       default:
         break
       }
-      self.tableView.deleteRows(at: [indexPath], with: .automatic)
     default: break
     }
   }
@@ -106,22 +105,14 @@ class WeatherViewController: UITableViewController {
   }
 
   private func setUpAndReloadTableView() {
+    self.viewModel.delegate = self
     self.tableView.register(WeatherTableViewCell.self)
     self.tableView.register(UnknownTableViewCell.self)
     self.tableView.reloadData()
   }
 
   private func addNewAddress(userInput: String) {
-    self.viewModel.addAddress(userInput: userInput) { result in
-      switch result {
-      case .validAddress:
-        self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-      case .invalidAddress:
-        self.tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
-      case .error(let error):
-        print("Something went wrong, \(error)")
-      }
-    }
+    self.viewModel.addAddress(userInput: userInput)
   }
 
   @objc fileprivate func pressAdd(_ button: Any) {
@@ -137,6 +128,13 @@ class WeatherViewController: UITableViewController {
     alertNewAddress.addAction(saveButton)
     alertNewAddress.addAction(UIAlertAction(title: "Cancel", style: .cancel))
     present(alertNewAddress, animated: true)
+  }
+}
+
+extension WeatherViewController: WeatherViewModelDelegate {
+  func weatherDidUpdate(_ viewModel: WeatherViewModel) {
+    // TODO: Use UITableView diffing instead of reloading.
+    self.tableView.reloadData()
   }
 }
 

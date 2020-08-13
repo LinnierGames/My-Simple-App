@@ -16,7 +16,7 @@
 		E100AF4A24C68D90007268AE /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF4924C68D90007268AE /* WeatherTableViewCell.swift */; };
 		E100AF4C24C68DD1007268AE /* UnknownTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF4B24C68DD1007268AE /* UnknownTableViewCell.swift */; };
 		E100AF4E24C6A4FA007268AE /* URLSession+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF4D24C6A4FA007268AE /* URLSession+Fake.swift */; };
-		E100AF5424CA8E39007268AE /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF5324CA8E39007268AE /* DataStore.swift */; };
+		E100AF5424CA8E39007268AE /* AddressStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF5324CA8E39007268AE /* AddressStore.swift */; };
 		E100AF5624CA92FC007268AE /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF5524CA92FC007268AE /* Networking.swift */; };
 		E100AF5824CA9316007268AE /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF5724CA9316007268AE /* LocationService.swift */; };
 		E12A340624DA6431000BA515 /* UITableView+MySimpleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12A340524DA6431000BA515 /* UITableView+MySimpleApp.swift */; };
@@ -25,6 +25,13 @@
 		E12A340C24DB9EF8000BA515 /* LocationServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12A340B24DB9EF8000BA515 /* LocationServiceImpl.swift */; };
 		E12A340E24DBA2C7000BA515 /* InternalGeolocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12A340D24DBA2C7000BA515 /* InternalGeolocation.swift */; };
 		E12A341024DBA2E0000BA515 /* InternalGeolocationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12A340F24DBA2E0000BA515 /* InternalGeolocationImpl.swift */; };
+		E12A341224DD01B3000BA515 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12A341124DD01B3000BA515 /* Event.swift */; };
+		E1BAE79724E4255500D58391 /* AddressObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BAE79624E4255500D58391 /* AddressObject.swift */; };
+		E1BAE79924E4257200D58391 /* AddressStoreImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BAE79824E4257200D58391 /* AddressStoreImpl.swift */; };
+		E1BAE79B24E425B700D58391 /* ReactableResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BAE79A24E425B700D58391 /* ReactableResource.swift */; };
+		E1BAE79D24E425CE00D58391 /* AnyReactableResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BAE79C24E425CE00D58391 /* AnyReactableResource.swift */; };
+		E1BAE79F24E4260C00D58391 /* InternalUserDefaultsImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BAE79E24E4260C00D58391 /* InternalUserDefaultsImpl.swift */; };
+		E1BAE7A124E4261B00D58391 /* InternalUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BAE7A024E4261B00D58391 /* InternalUserDefaults.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +67,7 @@
 		E100AF4924C68D90007268AE /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
 		E100AF4B24C68DD1007268AE /* UnknownTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownTableViewCell.swift; sourceTree = "<group>"; };
 		E100AF4D24C6A4FA007268AE /* URLSession+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Fake.swift"; sourceTree = "<group>"; };
-		E100AF5324CA8E39007268AE /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		E100AF5324CA8E39007268AE /* AddressStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressStore.swift; sourceTree = "<group>"; };
 		E100AF5524CA92FC007268AE /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		E100AF5724CA9316007268AE /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		E12A340524DA6431000BA515 /* UITableView+MySimpleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+MySimpleApp.swift"; sourceTree = "<group>"; };
@@ -69,6 +76,13 @@
 		E12A340B24DB9EF8000BA515 /* LocationServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceImpl.swift; sourceTree = "<group>"; };
 		E12A340D24DBA2C7000BA515 /* InternalGeolocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalGeolocation.swift; sourceTree = "<group>"; };
 		E12A340F24DBA2E0000BA515 /* InternalGeolocationImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalGeolocationImpl.swift; sourceTree = "<group>"; };
+		E12A341124DD01B3000BA515 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		E1BAE79624E4255500D58391 /* AddressObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressObject.swift; sourceTree = "<group>"; };
+		E1BAE79824E4257200D58391 /* AddressStoreImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressStoreImpl.swift; sourceTree = "<group>"; };
+		E1BAE79A24E425B700D58391 /* ReactableResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactableResource.swift; sourceTree = "<group>"; };
+		E1BAE79C24E425CE00D58391 /* AnyReactableResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyReactableResource.swift; sourceTree = "<group>"; };
+		E1BAE79E24E4260C00D58391 /* InternalUserDefaultsImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUserDefaultsImpl.swift; sourceTree = "<group>"; };
+		E1BAE7A024E4261B00D58391 /* InternalUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUserDefaults.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,7 +176,10 @@
 		E100AF5A24CA9C34007268AE /* Business Logic */ = {
 			isa = PBXGroup;
 			children = (
-				E100AF5324CA8E39007268AE /* DataStore.swift */,
+				E12A341124DD01B3000BA515 /* Event.swift */,
+				E1BAE79A24E425B700D58391 /* ReactableResource.swift */,
+				E1BAE79C24E425CE00D58391 /* AnyReactableResource.swift */,
+				E1BAE79524E4249200D58391 /* AddressStore */,
 				E100AF5724CA9316007268AE /* LocationService.swift */,
 				E12A340B24DB9EF8000BA515 /* LocationServiceImpl.swift */,
 				E12A340D24DBA2C7000BA515 /* InternalGeolocation.swift */,
@@ -180,6 +197,18 @@
 				E100AF2724C682F7007268AE /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E1BAE79524E4249200D58391 /* AddressStore */ = {
+			isa = PBXGroup;
+			children = (
+				E1BAE79624E4255500D58391 /* AddressObject.swift */,
+				E100AF5324CA8E39007268AE /* AddressStore.swift */,
+				E1BAE79824E4257200D58391 /* AddressStoreImpl.swift */,
+				E1BAE7A024E4261B00D58391 /* InternalUserDefaults.swift */,
+				E1BAE79E24E4260C00D58391 /* InternalUserDefaultsImpl.swift */,
+			);
+			path = AddressStore;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,16 +364,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				E100AF4A24C68D90007268AE /* WeatherTableViewCell.swift in Sources */,
-				E100AF5424CA8E39007268AE /* DataStore.swift in Sources */,
+				E100AF5424CA8E39007268AE /* AddressStore.swift in Sources */,
 				E12A340C24DB9EF8000BA515 /* LocationServiceImpl.swift in Sources */,
+				E12A341224DD01B3000BA515 /* Event.swift in Sources */,
+				E1BAE79924E4257200D58391 /* AddressStoreImpl.swift in Sources */,
 				E12A340A24DB8FC7000BA515 /* Address.swift in Sources */,
 				E100AF5824CA9316007268AE /* LocationService.swift in Sources */,
 				E100AF5624CA92FC007268AE /* Networking.swift in Sources */,
 				E100AF1E24C682F6007268AE /* WeatherViewController.swift in Sources */,
+				E1BAE79B24E425B700D58391 /* ReactableResource.swift in Sources */,
+				E1BAE79F24E4260C00D58391 /* InternalUserDefaultsImpl.swift in Sources */,
 				E100AF4C24C68DD1007268AE /* UnknownTableViewCell.swift in Sources */,
 				E100AF4E24C6A4FA007268AE /* URLSession+Fake.swift in Sources */,
+				E1BAE79D24E425CE00D58391 /* AnyReactableResource.swift in Sources */,
+				E1BAE79724E4255500D58391 /* AddressObject.swift in Sources */,
 				E12A341024DBA2E0000BA515 /* InternalGeolocationImpl.swift in Sources */,
 				E12A340E24DBA2C7000BA515 /* InternalGeolocation.swift in Sources */,
+				E1BAE7A124E4261B00D58391 /* InternalUserDefaults.swift in Sources */,
 				E12A340624DA6431000BA515 /* UITableView+MySimpleApp.swift in Sources */,
 				E100AF1A24C682F6007268AE /* AppDelegate.swift in Sources */,
 				E12A340824DB8D63000BA515 /* WeatherViewModel.swift in Sources */,
