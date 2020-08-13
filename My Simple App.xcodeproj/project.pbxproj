@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E100AF1A24C682F6007268AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF1924C682F6007268AE /* AppDelegate.swift */; };
-		E100AF1C24C682F6007268AE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF1B24C682F6007268AE /* SceneDelegate.swift */; };
 		E100AF1E24C682F6007268AE /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF1D24C682F6007268AE /* WeatherViewController.swift */; };
-		E100AF2124C682F6007268AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E100AF1F24C682F6007268AE /* Main.storyboard */; };
 		E100AF2324C682F7007268AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E100AF2224C682F7007268AE /* Assets.xcassets */; };
 		E100AF2624C682F7007268AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E100AF2424C682F7007268AE /* LaunchScreen.storyboard */; };
 		E100AF3124C682F7007268AE /* My_Simple_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF3024C682F7007268AE /* My_Simple_AppTests.swift */; };
@@ -46,9 +44,7 @@
 /* Begin PBXFileReference section */
 		E100AF1624C682F6007268AE /* My Simple App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Simple App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E100AF1924C682F6007268AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E100AF1B24C682F6007268AE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E100AF1D24C682F6007268AE /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
-		E100AF2024C682F6007268AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E100AF2224C682F7007268AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E100AF2524C682F7007268AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E100AF2724C682F7007268AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -147,14 +143,12 @@
 			isa = PBXGroup;
 			children = (
 				E100AF1924C682F6007268AE /* AppDelegate.swift */,
-				E100AF1B24C682F6007268AE /* SceneDelegate.swift */,
 				E12A340924DB8FC7000BA515 /* Address.swift */,
 				E12A340724DB8D63000BA515 /* WeatherViewModel.swift */,
 				E100AF1D24C682F6007268AE /* WeatherViewController.swift */,
 				E100AF4924C68D90007268AE /* WeatherTableViewCell.swift */,
 				E100AF4B24C68DD1007268AE /* UnknownTableViewCell.swift */,
 				E12A340524DA6431000BA515 /* UITableView+MySimpleApp.swift */,
-				E100AF1F24C682F6007268AE /* Main.storyboard */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -286,7 +280,6 @@
 			files = (
 				E100AF2624C682F7007268AE /* LaunchScreen.storyboard in Resources */,
 				E100AF2324C682F7007268AE /* Assets.xcassets in Resources */,
-				E100AF2124C682F6007268AE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,7 +336,6 @@
 				E12A340624DA6431000BA515 /* UITableView+MySimpleApp.swift in Sources */,
 				E100AF1A24C682F6007268AE /* AppDelegate.swift in Sources */,
 				E12A340824DB8D63000BA515 /* WeatherViewModel.swift in Sources */,
-				E100AF1C24C682F6007268AE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,14 +371,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E100AF1F24C682F6007268AE /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E100AF2024C682F6007268AE /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E100AF2424C682F7007268AE /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

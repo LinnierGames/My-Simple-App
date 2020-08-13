@@ -8,57 +8,23 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController {
+class WeatherViewController: UITableViewController {
   private let viewModel = WeatherViewModel()
 
-  @IBOutlet weak var table: UITableView!
-
-  @IBAction func pressAddAddress(_ sender: Any) {
-    let alertNewAddress = UIAlertController(
-      title: "New Address", message: "enter a new address", preferredStyle: .alert)
-    alertNewAddress.addTextField { textField in
-      textField.textContentType = .addressCityAndState
-      textField.placeholder = "e.g. Santa Rosa, CA"
-    }
-    let saveButton = UIAlertAction(title: "Save", style: .default) { _ in
-      self.addNewAddress(userInput: alertNewAddress.textFields![0].text ?? "")
-    }
-    alertNewAddress.addAction(saveButton)
-    alertNewAddress.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-    present(alertNewAddress, animated: true)
+  convenience init() {
+    self.init(style: .grouped)
   }
 
-  // MARK: - Override UIViewController
+  // MARK: - Override UITableViewController
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    self.table.register(WeatherTableViewCell.self)
-    self.table.register(UnknownTableViewCell.self)
-    self.table.reloadData()
-  }
-
-  // MARK: - Private
-
-  private func addNewAddress(userInput: String) {
-    self.viewModel.addAddress(userInput: userInput) { result in
-      switch result {
-      case .validAddress:
-        self.table.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-      case .invalidAddress:
-        self.table.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
-      case .error(let error):
-        print("Something went wrong, \(error)")
-      }
-    }
-  }
-}
-
-extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
-  func numberOfSections(in tableView: UITableView) -> Int {
+  override func numberOfSections(in tableView: UITableView) -> Int {
     return 2
   }
 
-  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+  override func tableView(
+    _ tableView: UITableView,
+    titleForHeaderInSection section: Int
+  ) -> String? {
     switch section {
     case 0:
       return "Valid Addresses"
@@ -69,7 +35,7 @@ extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
     }
   }
 
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch section {
     case 0:
       return self.viewModel.validAddresses.count
@@ -80,7 +46,10 @@ extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
     }
   }
 
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  override func tableView(
+    _ tableView: UITableView,
+    cellForRowAt indexPath: IndexPath
+  ) -> UITableViewCell {
     switch indexPath.section {
     case 0:
       let cell = tableView.dequeueReusableCell(for: indexPath) as WeatherTableViewCell
@@ -100,7 +69,7 @@ extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
     }
   }
 
-  func tableView(
+  override func tableView(
     _ tableView: UITableView,
     commit editingStyle: UITableViewCell.EditingStyle,
     forRowAt indexPath: IndexPath
@@ -115,8 +84,62 @@ extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
       default:
         break
       }
-      self.table.deleteRows(at: [indexPath], with: .automatic)
+      self.tableView.deleteRows(at: [indexPath], with: .automatic)
     default: break
     }
   }
+
+  // MARK: - Override UIViewController
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.layoutView()
+    self.setUpAndReloadTableView()
+    self.title = "My App"
+  }
+
+  // MARK: - Private
+
+  private func layoutView() {
+    self.navigationItem.rightBarButtonItem =
+      UIBarButtonItem(barButtonSystemItem: .add, target: self, action: .pressAdd)
+  }
+
+  private func setUpAndReloadTableView() {
+    self.tableView.register(WeatherTableViewCell.self)
+    self.tableView.register(UnknownTableViewCell.self)
+    self.tableView.reloadData()
+  }
+
+  private func addNewAddress(userInput: String) {
+    self.viewModel.addAddress(userInput: userInput) { result in
+      switch result {
+      case .validAddress:
+        self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+      case .invalidAddress:
+        self.tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
+      case .error(let error):
+        print("Something went wrong, \(error)")
+      }
+    }
+  }
+
+  @objc fileprivate func pressAdd(_ button: Any) {
+    let alertNewAddress = UIAlertController(
+      title: "New Address", message: "enter a new address", preferredStyle: .alert)
+    alertNewAddress.addTextField { textField in
+      textField.textContentType = .addressCityAndState
+      textField.placeholder = "e.g. Santa Rosa, CA"
+    }
+    let saveButton = UIAlertAction(title: "Save", style: .default) { _ in
+      self.addNewAddress(userInput: alertNewAddress.textFields![0].text ?? "")
+    }
+    alertNewAddress.addAction(saveButton)
+    alertNewAddress.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+    present(alertNewAddress, animated: true)
+  }
+}
+
+extension Selector {
+  fileprivate static let pressAdd = #selector(WeatherViewController.pressAdd(_:))
 }
