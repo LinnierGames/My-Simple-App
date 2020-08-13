@@ -9,29 +9,32 @@
 import UIKit
 import CoreLocation
 
+protocol CellIdentifiable {
+  static var identifier: String { get }
+}
+
 class ViewController: UIViewController {
-  @IBOutlet weak var table: UITableView!
+  var table: UITableView = {
+    let table = UITableView()
+    table.backgroundColor = .white
+    // When you're writing programatic UI using anchors, this property has to
+    //   be disabled on all views. At larger dev shops, there will likely be some sort
+    //   of view framework and system views (eg UILabel, UIButton) will not be used
+    //   directly. The wrapper views will disable this property for you in that case.
+    table.translatesAutoresizingMaskIntoConstraints = false
+    table.register(WeatherTableViewCell.self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
+    table.register(UnknownTableViewCell.self, forCellReuseIdentifier: UnknownTableViewCell.identifier)
+    return table
+  }()
 
   var validAddresses = [Address]()
   var invalidAddresses = [Address]()
-
-  @IBAction func pressAddAddress(_ sender: Any) {
-    let alertNewAddress = UIAlertController(
-      title: "New Address", message: "enter a new address", preferredStyle: .alert)
-    alertNewAddress.addTextField { textField in
-      textField.textContentType = .addressCityAndState
-      textField.placeholder = "e.g. Santa Rosa, CA"
-    }
-    let saveButton = UIAlertAction(title: "Save", style: .default) { _ in
-      self.addNewAddress(userInput: alertNewAddress.textFields![0].text ?? "")
-    }
-    alertNewAddress.addAction(saveButton)
-    alertNewAddress.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-    present(alertNewAddress, animated: true)
-  }
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    setupViews()
+    setupLayout()
 
     self.load()
     self.table.reloadData()
@@ -69,6 +72,37 @@ class ViewController: UIViewController {
       }
     }
   }
+  
+  @objc func pressAddAddress(_ sender: Any) {
+    let alertNewAddress = UIAlertController(
+      title: "New Address", message: "enter a new address", preferredStyle: .alert)
+    alertNewAddress.addTextField { textField in
+      textField.textContentType = .addressCityAndState
+      textField.placeholder = "e.g. Santa Rosa, CA"
+    }
+    let saveButton = UIAlertAction(title: "Save", style: .default) { _ in
+      self.addNewAddress(userInput: alertNewAddress.textFields![0].text ?? "")
+    }
+    alertNewAddress.addAction(saveButton)
+    alertNewAddress.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+    present(alertNewAddress, animated: true)
+  }
+  
+  private func setupViews() {
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pressAddAddress(_:)))
+    table.delegate = self
+    table.dataSource = self
+    view.addSubview(table)
+  }
+  
+  private func setupLayout() {
+    NSLayoutConstraint.activate([
+      table.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      table.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+      table.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      table.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+    ])
+  }
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
@@ -103,7 +137,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     case 0:
       guard
         let cell = tableView.dequeueReusableCell(
-          withIdentifier: "weather cell", for: indexPath
+          withIdentifier: WeatherTableViewCell.identifier, for: indexPath
         ) as? WeatherTableViewCell
       else {
         fatalError()
@@ -118,7 +152,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     case 1:
       guard
         let cell = tableView.dequeueReusableCell(
-          withIdentifier: "unknown cell", for: indexPath
+          withIdentifier: UnknownTableViewCell.identifier, for: indexPath
         ) as? UnknownTableViewCell
       else {
         fatalError()
