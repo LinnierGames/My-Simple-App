@@ -7,7 +7,17 @@
 //
 
 import UIKit
-import CoreLocation
+import CoreLocation // TODO: Remove this dependency after refactoring Networking.
+
+struct WeatherData: Decodable {
+  let temperature: Float
+  let rawIcon: String
+
+  enum CodingKeys: String, CodingKey {
+    case temperature
+    case rawIcon = "raw-icon"
+  }
+}
 
 class Networking {
   // TODO: Convert into a service.
@@ -41,8 +51,8 @@ class Networking {
 
       completion(
         Weather(
-          temperature: CGFloat(weatherData.temperature),
-          icon: WeatherIcon(name: weatherData.rawIcon, image: UIImage(named: weatherData.rawIcon)!)
+          temperature: Double(weatherData.temperature),
+          iconName: weatherData.rawIcon
         )
       )
     }.resume()
