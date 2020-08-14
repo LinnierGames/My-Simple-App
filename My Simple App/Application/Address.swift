@@ -8,32 +8,12 @@
 
 import UIKit
 
-// TODO: remove vars
-
 struct Address {
   let identifier: UUID
-  var rawValue: String?
-  var longitude: Double?
-  var latitude: Double?
-  var weather: Weather?
-
-  init() {
-    self.identifier = UUID()
-  }
-
-  init(
-    identifier: UUID,
-    rawValue: String?,
-    longitude: Double?,
-    latitude: Double?,
-    weather: Weather?
-  ) {
-    self.identifier = identifier
-    self.rawValue = rawValue
-    self.longitude = longitude
-    self.latitude = latitude
-    self.weather = weather
-  }
+  let rawValue: String?
+  let longitude: Double?
+  let latitude: Double?
+  let weather: Weather?
 }
 
 struct Weather {

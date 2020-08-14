@@ -31,8 +31,28 @@ class AddressStoreImpl: AddressStore {
     return AnyReactableResource(base: AllAddressesReactableResource(store: self))
   }
 
-  func store(address: Address) {
-    let addressObject = AddressObject(address)
+  func storeAddress(name: String) {
+    let addressObject = AddressObject(
+      identifier: UUID(),
+      name: name,
+      longitude: nil,
+      latitude: nil,
+      temperature: nil,
+      iconName: nil
+    )
+    let newAddresses = [addressObject] + self.loadData()
+    self.saveData(addresses: newAddresses)
+  }
+
+  func storeAddress(name: String, latitude: Double, longitude: Double, weather: Weather) {
+    let addressObject = AddressObject(
+      identifier: UUID(),
+      name: name,
+      longitude: longitude,
+      latitude: latitude,
+      temperature: weather.temperature,
+      iconName: weather.iconName
+    )
     let newAddresses = [addressObject] + self.loadData()
     self.saveData(addresses: newAddresses)
   }

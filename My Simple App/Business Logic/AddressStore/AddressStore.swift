@@ -10,7 +10,8 @@ typealias AllAddressesResource = AnyReactableResource<[Address]>
 
 /// Save and load `Address` objects from persistence.
 protocol AddressStore {
-  func store(address: Address) // TODO: use primitive types for the params.
+  func storeAddress(name: String)
+  func storeAddress(name: String, latitude: Double, longitude: Double, weather: Weather)
   func addresses() -> AllAddressesResource
   func delete(address: Address)
 }
