@@ -6,7 +6,7 @@
 //  Copyright © 2020 Erick Sanchez. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 struct Address {
   let identifier: UUID
