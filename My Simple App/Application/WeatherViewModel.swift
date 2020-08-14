@@ -6,8 +6,6 @@
 //  Copyright © 2020 Erick Sanchez. All rights reserved.
 //
 
-import CoreLocation // TODO: Remove this dependency after refactoring Networking.
-
 protocol WeatherViewModelDelegate: AnyObject {
   func weatherDidUpdate(_ viewModel: WeatherViewModel)
 }
@@ -20,14 +18,17 @@ class WeatherViewModel {
 
   private let locationService: LocationService
   private let addressStore: AddressStore
+  private let networkService: NetworkingService
   private let allAddressesResource: AllAddressesResource
 
   init(
     locationService: LocationService = injectLocationService(),
-    dataStore: AddressStore = injectAddressStore()
+    dataStore: AddressStore = injectAddressStore(),
+    networkService: NetworkingService = injectNetworkingService()
   ) {
     self.locationService = locationService
     self.addressStore = dataStore
+    self.networkService = networkService
     self.allAddressesResource = self.addressStore.addresses()
 
     self.allAddressesResource.didChangeEvent.add(self, handler: self.populuateAddresses)
@@ -38,15 +39,22 @@ class WeatherViewModel {
     locationService.info(from: userInput) { result in
       switch result {
       case .success(let info):
-        let coordinates = CLLocationCoordinate2D(latitude: info.latitude, longitude: info.longitude)
-        Networking.fetchWeather(location: coordinates) { weather in
-          let formatedName = info.displayName ?? userInput
-          self.addressStore.storeAddress(
-            name: formatedName,
-            latitude: info.latitude,
-            longitude: info.longitude,
-            weather: weather
-          )
+        self.networkService.process(
+        request: WeatherRequestByCooridnates(
+          longitude: info.longitude, latitude: info.latitude)
+        ) { result in
+          switch result {
+          case .success(let weather):
+            let formatedName = info.displayName ?? userInput
+            self.addressStore.storeAddress(
+              name: formatedName,
+              latitude: info.latitude,
+              longitude: info.longitude,
+              weather: weather
+            )
+          case .failure(let error):
+            print("failed to fetch weather: \(error)")
+          }
         }
       case .failure:
         self.addressStore.storeAddress(name: userInput)
