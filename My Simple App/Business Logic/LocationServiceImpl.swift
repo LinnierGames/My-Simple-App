@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import CoreLocation
 
 func injectLocationService() -> LocationService {
   return LocationServiceImpl()
