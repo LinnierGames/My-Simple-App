@@ -142,8 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				E100AF5924CA9C27007268AE /* Application */,
-				E100AF5A24CA9C34007268AE /* Business Logic */,
-				E100AF5B24CA9C46007268AE /* Supporting Files */,
+				E100AF5A24CA9C34007268AE /* Services */,
 				E100AF4D24C6A4FA007268AE /* URLSession+Fake.swift */,
 			);
 			path = "My Simple App";
@@ -171,30 +170,24 @@
 			isa = PBXGroup;
 			children = (
 				E100AF1924C682F6007268AE /* AppDelegate.swift */,
-				E12A340924DB8FC7000BA515 /* Address.swift */,
-				E12A340724DB8D63000BA515 /* WeatherViewModel.swift */,
-				E100AF1D24C682F6007268AE /* WeatherViewController.swift */,
-				E100AF4924C68D90007268AE /* WeatherTableViewCell.swift */,
-				E100AF4B24C68DD1007268AE /* UnknownTableViewCell.swift */,
-				E12A340524DA6431000BA515 /* UITableView+MySimpleApp.swift */,
+				E18D6D5C24E6416F00C76E32 /* Weather */,
+				E18D6D5D24E6418800C76E32 /* Extensions */,
+				E100AF5B24CA9C46007268AE /* Supporting Files */,
 			);
 			path = Application;
 			sourceTree = "<group>";
 		};
-		E100AF5A24CA9C34007268AE /* Business Logic */ = {
+		E100AF5A24CA9C34007268AE /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				E1BAE79C24E425CE00D58391 /* AnyReactableResource.swift */,
 				E12A341124DD01B3000BA515 /* Event.swift */,
 				E1BAE79A24E425B700D58391 /* ReactableResource.swift */,
 				E1BAE79524E4249200D58391 /* AddressStore */,
-				E100AF5724CA9316007268AE /* LocationService.swift */,
-				E12A340B24DB9EF8000BA515 /* LocationServiceImpl.swift */,
-				E12A340D24DBA2C7000BA515 /* InternalGeolocation.swift */,
-				E12A340F24DBA2E0000BA515 /* InternalGeolocationImpl.swift */,
+				E18D6D5B24E6412A00C76E32 /* LocationService */,
 				E18D6D5A24E63FD200C76E32 /* NetworkingService */,
 			);
-			path = "Business Logic";
+			path = Services;
 			sourceTree = "<group>";
 		};
 		E100AF5B24CA9C46007268AE /* Supporting Files */ = {
@@ -219,9 +212,40 @@
 			path = NetworkingService;
 			sourceTree = "<group>";
 		};
+		E18D6D5B24E6412A00C76E32 /* LocationService */ = {
+			isa = PBXGroup;
+			children = (
+				E100AF5724CA9316007268AE /* LocationService.swift */,
+				E12A340B24DB9EF8000BA515 /* LocationServiceImpl.swift */,
+				E12A340D24DBA2C7000BA515 /* InternalGeolocation.swift */,
+				E12A340F24DBA2E0000BA515 /* InternalGeolocationImpl.swift */,
+			);
+			path = LocationService;
+			sourceTree = "<group>";
+		};
+		E18D6D5C24E6416F00C76E32 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				E12A340724DB8D63000BA515 /* WeatherViewModel.swift */,
+				E100AF1D24C682F6007268AE /* WeatherViewController.swift */,
+				E100AF4924C68D90007268AE /* WeatherTableViewCell.swift */,
+				E100AF4B24C68DD1007268AE /* UnknownTableViewCell.swift */,
+			);
+			path = Weather;
+			sourceTree = "<group>";
+		};
+		E18D6D5D24E6418800C76E32 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E12A340524DA6431000BA515 /* UITableView+MySimpleApp.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		E1BAE79524E4249200D58391 /* AddressStore */ = {
 			isa = PBXGroup;
 			children = (
+				E12A340924DB8FC7000BA515 /* Address.swift */,
 				E1BAE79624E4255500D58391 /* AddressObject.swift */,
 				E100AF5324CA8E39007268AE /* AddressStore.swift */,
 				E1BAE79824E4257200D58391 /* AddressStoreImpl.swift */,
@@ -573,7 +597,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "My Simple App/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "My Simple App/Application/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -591,7 +615,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "My Simple App/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "My Simple App/Application/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
