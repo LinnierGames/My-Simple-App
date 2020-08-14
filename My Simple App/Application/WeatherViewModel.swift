@@ -40,17 +40,16 @@ class WeatherViewModel {
       case .success(let info):
         let coordinates = CLLocationCoordinate2D(latitude: info.latitude, longitude: info.longitude)
         Networking.fetchWeather(location: coordinates) { weather in
-          var newAddress = Address()
-          newAddress.rawValue = info.displayName
-          newAddress.latitude = info.latitude
-          newAddress.longitude = info.longitude
-          newAddress.weather = weather
-          self.addressStore.store(address: newAddress)
+          let formatedName = info.displayName ?? userInput
+          self.addressStore.storeAddress(
+            name: formatedName,
+            latitude: info.latitude,
+            longitude: info.longitude,
+            weather: weather
+          )
         }
       case .failure:
-        var newAddress = Address()
-        newAddress.rawValue = userInput
-        self.addressStore.store(address: newAddress)
+        self.addressStore.storeAddress(name: userInput)
       }
     }
   }
