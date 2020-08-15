@@ -24,7 +24,10 @@ class AnyReactableResource<Resource>: ReactableResource {
   }
 }
 
-private class BaseReactableResource<Resource, Type: ReactableResource>: AbstractReactableResource<Resource> where Type.Resource == Resource {
+private class BaseReactableResource<
+  Resource,
+  Type: ReactableResource
+>: AbstractReactableResource<Resource> where Type.Resource == Resource {
   let base: Type
 
   init(base: Type) {
@@ -42,10 +45,10 @@ private class BaseReactableResource<Resource, Type: ReactableResource>: Abstract
 
 private class AbstractReactableResource<Resource>: ReactableResource {
   var resource: Resource {
-    fatalError()
+    fatalError("not implemented")
   }
 
   var didChangeEvent: Event<Void> {
-    fatalError()
+    fatalError("not implemented")
   }
 }

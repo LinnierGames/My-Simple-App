@@ -180,9 +180,9 @@
 		E100AF5A24CA9C34007268AE /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				E1BAE79C24E425CE00D58391 /* AnyReactableResource.swift */,
 				E12A341124DD01B3000BA515 /* Event.swift */,
 				E1BAE79A24E425B700D58391 /* ReactableResource.swift */,
-				E1BAE79C24E425CE00D58391 /* AnyReactableResource.swift */,
 				E1BAE79524E4249200D58391 /* AddressStore */,
 				E18D6D5B24E6412A00C76E32 /* LocationService */,
 				E18D6D5A24E63FD200C76E32 /* NetworkingService */,
@@ -203,11 +203,11 @@
 		E18D6D5A24E63FD200C76E32 /* NetworkingService */ = {
 			isa = PBXGroup;
 			children = (
+				E18D6D5824E639B400C76E32 /* DarkSkyAPIRequests.swift */,
 				E18D6D4C24E6333800C76E32 /* NetworkingService.swift */,
 				E18D6D4F24E6333800C76E32 /* NetworkingServiceImpl.swift */,
 				E18D6D4D24E6333800C76E32 /* NetworkingService+Codable.swift */,
 				E18D6D4E24E6333800C76E32 /* NetworkingService+Util.swift */,
-				E18D6D5824E639B400C76E32 /* DarkSkyAPIRequests.swift */,
 			);
 			path = NetworkingService;
 			sourceTree = "<group>";
