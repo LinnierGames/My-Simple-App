@@ -45,7 +45,7 @@ extension NetworkRequest where ResponseType == Void {
 //}
 //
 //extension NetworkRequest where ResponseType == DecoderMaper<DecodableType, Any> {
-//  /// Uses the default `JSONDecoder` and decodes the given response data into the `Decodable` type.
+//  /// Uses the default `JSONDecoder` and decodes the given response data into the `Decodable` type
 //  func proccess(
 //    response: NetworkResponse,
 //    completion: @escaping (Result<ResponseType, Error>) -> Void

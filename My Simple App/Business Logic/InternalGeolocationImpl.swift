@@ -25,3 +25,14 @@ class InternalGeocoderImpl: InternalGeocoder {
     self.geocoder.geocodeAddressString(address, completionHandler: completion)
   }
 }
+
+class InternalGeocoderFactory {
+  private let factory: () -> InternalGeocoder
+  init(factory: @escaping () -> InternalGeocoder) {
+    self.factory = factory
+  }
+
+  func make() -> InternalGeocoder {
+    return self.factory()
+  }
+}

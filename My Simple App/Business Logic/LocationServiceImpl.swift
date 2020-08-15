@@ -12,18 +12,10 @@ func injectLocationService() -> LocationService {
   return LocationServiceImpl()
 }
 
-class InternalGeocoderFactory {
-  private let factory: () -> InternalGeocoder
-  init(factory: @escaping () -> InternalGeocoder) {
-    self.factory = factory
-  }
-
-  func make() -> InternalGeocoder {
-    return self.factory()
-  }
-}
-
 class LocationServiceImpl: LocationService {
+
+  // TODO: mock dependencies and write unit tests.
+
   private let geocoderFactory: InternalGeocoderFactory
 
   init(

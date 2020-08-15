@@ -8,7 +8,7 @@
 
 typealias AllAddressesResource = AnyReactableResource<[Address]>
 
-/// Save and load `Address` objects from persistence.
+/// Save, delete and load `Address` objects from persistence.
 protocol AddressStore {
   func storeAddress(name: String)
   func storeAddress(name: String, latitude: Double, longitude: Double, weather: Weather)
