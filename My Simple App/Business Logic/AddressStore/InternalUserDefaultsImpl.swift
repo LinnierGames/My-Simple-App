@@ -8,6 +8,10 @@
 
 import Foundation
 
+func injectInternalUserDefaults() -> InternalUserDefaults {
+  return InternalUserDefaultsImpl(userDefaults: UserDefaults.standard)
+}
+
 class InternalUserDefaultsImpl: InternalUserDefaults {
   private let userDefaults: UserDefaults
 

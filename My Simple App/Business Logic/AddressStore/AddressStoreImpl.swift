@@ -9,14 +9,13 @@
 import Foundation
 
 func injectAddressStore() -> AddressStore {
-  AddressStoreImpl(
-    internalUserDefaults: InternalUserDefaultsImpl(userDefaults: UserDefaults.standard)
-  )
+  AddressStoreImpl(internalUserDefaults: injectInternalUserDefaults())
 }
 
-// TODO: load and save off the main thread.
-
 class AddressStoreImpl: AddressStore {
+
+  // TODO: mock dependencies and write unit tests.
+
   private static let userAddressesKey = "USER_ADDRESSES"
 
   fileprivate let storeDidChange = Event<Void>()
@@ -71,6 +70,8 @@ class AddressStoreImpl: AddressStore {
 
   // MARK: - Private
 
+  // TODO: load and save off the main thread.
+
   private func saveData(addresses: [AddressObject]) {
     do {
       let newAddressesData = try JSONEncoder().encode(addresses)
@@ -111,7 +112,7 @@ private class AllAddressesReactableResource: ReactableResource {
 
   init(store: AddressStoreImpl) {
     self.store = store
-    store.storeDidChange.add(self, handler: self.updateResources)
+    store.storeDidChange.add(subscriber: self, handler: self.updateResources)
     self.updateResources()
   }
 

@@ -31,7 +31,7 @@ class WeatherViewModel {
     self.networkService = networkService
     self.allAddressesResource = self.addressStore.addresses()
 
-    self.allAddressesResource.didChangeEvent.add(self, handler: self.populuateAddresses)
+    self.allAddressesResource.didChangeEvent.add(subscriber: self, handler: self.populuateAddresses)
     self.populuateAddresses()
   }
 

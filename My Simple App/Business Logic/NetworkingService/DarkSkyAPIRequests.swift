@@ -35,6 +35,7 @@ struct WeatherRequestByCooridnates: NetworkRequest {
   private let longitude: Double
   private let latitude: Double
 
+  // TODO: Pass timestamp to weather request.
   init(longitude: Double, latitude: Double) {
     self.longitude = longitude
     self.latitude = latitude

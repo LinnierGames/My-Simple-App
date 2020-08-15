@@ -14,7 +14,7 @@ import Foundation
 ///   let keyboard = KeyboardListner()
 ///
 ///   init() {
-///     self.keyboard.keyboardHeight.add(self) { [weak self] newHeight in
+///     self.keyboard.keyboardHeight.add(subscriber: self) { [weak self] newHeight in
 ///       self?.updateUIToNewKeyboardHeight(newHeight)
 ///     }
 ///   }
@@ -32,7 +32,7 @@ class Event<Value> {
   ///
   /// - Note: only unique subscribers can be added to the same event. If the same subscriber
   /// subscribes the same event, the previous subscription will be overwritten.
-  func add(_ subscriber: Subscriber, handler: @escaping Subscription) {
+  func add(subscriber: Subscriber, handler: @escaping Subscription) {
     let subscriberKey = ObjectIdentifier(subscriber)
 
     self.lock.async {

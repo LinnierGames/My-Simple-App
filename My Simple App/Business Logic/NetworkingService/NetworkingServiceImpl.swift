@@ -5,6 +5,9 @@ func injectNetworkingService() -> NetworkingService {
 }
 
 class NetworkingServiceImpl: NetworkingService {
+
+  // TODO: mock dependencies and write unit tests.
+
   private let session: URLSession
 
   init(urlSession: URLSession) {
@@ -35,7 +38,8 @@ class NetworkingServiceImpl: NetworkingService {
         urlRequest.httpBody = try? encoder.encode(encodable)
         urlRequest.addValueIfEmpty(
           "application/json; charset=utf-8",
-          forHTTPHeaderField: "Content-Type")
+          forHTTPHeaderField: "Content-Type"
+        )
       case .params(let dictionary):
         guard var urlComponents = URLComponents(url: fullURL, resolvingAgainstBaseURL: true) else {
           break setPayload
@@ -98,7 +102,7 @@ extension URLRequest {
 }
 
 extension NetworkMethod {
-  var stringValue: String {
+  fileprivate var stringValue: String {
     switch self {
     case .get: return "GET"
     case .post: return "POST"

@@ -18,6 +18,8 @@ enum LocationServiceErrors: Error {
   case noInfoFound
 }
 
+/// Location helper.
 protocol LocationService {
+  /// Get location info from the given string.
   func info(from address: String, completion: @escaping (Result<LocationInfo, Error>) -> Void)
 }
