@@ -65,7 +65,7 @@ For each project:
 
 ### Got an idea for a project?
 
-Reach out to me on LinkedIn and we can chat about creating a branch with the project so you can upload your project. The project idea doesn't have to be iOS. It could be:
+Reach out to me on [LinkedIn](https://www.linkedin.com/in/e-sanchez-e/) and we can chat about creating a branch with the project so you can upload your project. The project idea doesn't have to be iOS. It could be:
 
 - Express backend API
 - web app writen with Angular
@@ -94,10 +94,12 @@ Reach out to me on LinkedIn and we can chat about creating a branch with the pro
 
 # How to propose an amend PR to a project
 
-Got an idea on how a project should start out with? Like no storyboards, or non-private methods should have docs, or even no force unwrapping? If so, follow the steps in **How to submit your revision** and add the **Amend Sample Project** label to your PR
+Got an idea on how a project should start out with? Like no storyboards, or non-private methods should have docs, or even no force unwrapping? If so, follow the steps in **How to submit your revision** and:
+1. use [this](https://github.com/LinnierGames/My-Simple-App/compare/master...master?template=project_addition.md) PR template
+1. add the **Amend Sample Project** label to your PR
 
 Your PR should not:
-1. introduce something that can be deemed as not common iOS knowledge
+1. introduce something that can be deemed as not common iOS knowledge (e.g. using type-erasures)
 1. use a Swift or iOS library/framework/tool that just came out within the month
 1. perform operations multi-threaded
 
