@@ -95,8 +95,9 @@ Reach out to me on [LinkedIn](https://www.linkedin.com/in/e-sanchez-e/) and we c
 # How to propose an amend PR to a project
 
 Got an idea on how a project should start out with? Like no storyboards, or non-private methods should have docs, or even no force unwrapping? If so, follow the steps in **How to submit your revision** and:
-1. use [this](https://github.com/LinnierGames/My-Simple-App/compare/master...master?template=project_addition.md) PR template
+1. use [this](https://github.com/LinnierGames/My-Simple-App/blob/master/.github/PULL_REQUEST_TEMPLATE/project_addition.md) PR template by adding `?template=project_addition.md` to the url
 1. add the **Amend Sample Project** label to your PR
+1. add **ErickES7** as a reviewer
 
 Your PR should not:
 1. introduce something that can be deemed as not common iOS knowledge (e.g. using type-erasures)
