@@ -7,20 +7,16 @@
 //
 
 import UIKit
-import CoreLocation // TODO: Remove this dependency.
 
-class Address {
-  var rawValue: String?
-  var coordinates: CLLocationCoordinate2D?
-  var weather: Weather?
+struct Address {
+  let identifier: UUID
+  let rawValue: String?
+  let longitude: Double?
+  let latitude: Double?
+  let weather: Weather?
 }
 
 struct Weather {
-  let temperature: CGFloat
-  let icon: WeatherIcon
-}
-
-struct WeatherIcon {
-  let name: String
-  let image: UIImage
+  let temperature: Double
+  let iconName: String
 }

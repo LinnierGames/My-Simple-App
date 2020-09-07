@@ -6,39 +6,58 @@
 //  Copyright © 2020 Erick Sanchez. All rights reserved.
 //
 
-enum AddressResult {
-  case validAddress(Address)
-  case invalidAddress(Address)
-  case error(Error)
+protocol WeatherViewModelDelegate: AnyObject {
+  func weatherDidUpdate(_ viewModel: WeatherViewModel)
 }
 
 class WeatherViewModel {
+  weak var delegate: WeatherViewModelDelegate?
+
   private(set) var validAddresses = [Address]()
   private(set) var invalidAddresses = [Address]()
 
-  init() {
-    self.load()
+  private let locationService: LocationService
+  private let addressStore: AddressStore
+  private let networkService: NetworkingService
+  private let allAddressesResource: AllAddressesResource
+
+  init(
+    locationService: LocationService = injectLocationService(),
+    dataStore: AddressStore = injectAddressStore(),
+    networkService: NetworkingService = injectNetworkingService()
+  ) {
+    self.locationService = locationService
+    self.addressStore = dataStore
+    self.networkService = networkService
+    self.allAddressesResource = self.addressStore.addresses()
+
+    self.allAddressesResource.didChangeEvent.add(subscriber: self, handler: self.populuateAddresses)
+    self.populuateAddresses()
   }
 
-  func addAddress(userInput: String, completion: @escaping (AddressResult) -> Void) {
-    Location.coordinates(from: userInput) { location in
-      guard let location = location else {
-        let newAddress = Address()
-        newAddress.rawValue = userInput
-        self.invalidAddresses.insert(newAddress, at: 0)
-        completion(.invalidAddress(newAddress))
-        self.save()
-        return
-      }
-
-      Networking.fetchWeather(location: location.coordinate) { weather in
-        let newAddress = Address()
-        newAddress.rawValue = userInput
-        newAddress.coordinates = location.coordinate
-        newAddress.weather = weather
-        self.validAddresses.insert(newAddress, at: 0)
-        completion(.validAddress(newAddress))
-        self.save()
+  func addAddress(userInput: String) {
+    locationService.info(from: userInput) { result in
+      switch result {
+      case .success(let info):
+        self.networkService.process(
+        request: WeatherRequestByCooridnates(
+          longitude: info.longitude, latitude: info.latitude)
+        ) { result in
+          switch result {
+          case .success(let weather):
+            let formatedName = info.displayName ?? userInput
+            self.addressStore.storeAddress(
+              name: formatedName,
+              latitude: info.latitude,
+              longitude: info.longitude,
+              weather: weather
+            )
+          case .failure(let error):
+            print("failed to fetch weather: \(error)")
+          }
+        }
+      case .failure:
+        self.addressStore.storeAddress(name: userInput)
       }
     }
   }
@@ -48,8 +67,8 @@ class WeatherViewModel {
       return assertionFailure("Given index out of range, \(index)")
     }
 
-    self.validAddresses.remove(at: index)
-    self.save()
+    let addressToRemove = self.validAddresses[index]
+    self.addressStore.delete(address: addressToRemove)
   }
 
   func removeInvalidAddress(at index: Int) {
@@ -57,19 +76,25 @@ class WeatherViewModel {
       return assertionFailure("Given index out of range, \(index)")
     }
 
-    self.invalidAddresses.remove(at: index)
-    self.save()
+    let addressToRemove = self.invalidAddresses[index]
+    self.addressStore.delete(address: addressToRemove)
   }
 
   // MARK: - Private
 
-  private func load() {
-    let userData = DataStore.load()
-    self.validAddresses = userData.validAddresses
-    self.invalidAddresses = userData.invalidAddresses
-  }
+  private func populuateAddresses() {
+    var validAddresses = [Address]()
+    var invalidAddresses = [Address]()
+    for address in self.allAddressesResource.resource {
+      if address.weather != nil {
+        validAddresses.append(address)
+      } else {
+        invalidAddresses.append(address)
+      }
+    }
 
-  private func save() {
-    DataStore.save(validAddresses: self.validAddresses, invalidAddresses: self.invalidAddresses)
+    self.validAddresses = validAddresses
+    self.invalidAddresses = invalidAddresses
+    self.delegate?.weatherDidUpdate(self)
   }
 }
