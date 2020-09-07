@@ -49,6 +49,7 @@ For each project:
 - comment, write unit or UI tests
 
 ### Weather app
+![weather-app-1](https://user-images.githubusercontent.com/1758210/92414838-da244b00-f10a-11ea-85bc-60ec5f2a101f.png)
 - view the weather in a table view
 - user can enter an address
 - each address and weather is persisted
