@@ -4,7 +4,7 @@
 - user can enter an address
 - each address and weather is persisted
 - invalid addresses are displayed in a separate section
-- **Note**: the weather data is mocked locally through a custom URLSession class [here](https://github.com/LinnierGames/My-Simple-App/blob/fc812957e8ca8f184838214870af7c50afcdf681/My%20Simple%20App/URLSession%2BFake.swift#L11)
+- **Note**: the weather data is mocked locally through a custom URLSession class [here](https://github.com/LinnierGames/My-Simple-App/blob/weather-app/My%20Simple%20App/URLSession%2BFake.swift)
 
 # How to submit your revision
 
