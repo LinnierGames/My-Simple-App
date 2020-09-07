@@ -7,13 +7,11 @@
 //
 
 import UIKit
-import CoreLocation
 
-class ViewController: UIViewController {
+class WeatherViewController: UIViewController {
+  private let viewModel = ViewModel()
+
   @IBOutlet weak var table: UITableView!
-
-  var validAddresses = [Address]()
-  var invalidAddresses = [Address]()
 
   @IBAction func pressAddAddress(_ sender: Any) {
     let alertNewAddress = UIAlertController(
@@ -30,48 +28,32 @@ class ViewController: UIViewController {
     present(alertNewAddress, animated: true)
   }
 
+  // MARK: - Override UIViewController
+
   override func viewDidLoad() {
     super.viewDidLoad()
-
-    self.load()
+    self.table.register(WeatherTableViewCell.self)
+    self.table.register(UnknownTableViewCell.self)
     self.table.reloadData()
   }
 
-  private func save() {
-    DataStore.save(validAddresses: validAddresses, invalidAddresses: invalidAddresses)
-  }
-
-  private func load() {
-    let userData = DataStore.load()
-    validAddresses = userData.validAddresses
-    invalidAddresses = userData.invalidAddresses
-  }
+  // MARK: - Private
 
   private func addNewAddress(userInput: String) {
-    Location.coordinates(from: userInput) { location in
-      guard let location = location else {
-        let newAddress = Address()
-        newAddress.rawValue = userInput
-        self.invalidAddresses.insert(newAddress, at: 0)
-        self.table.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
-        self.save()
-        return
-      }
-
-      Networking.fetchWeather(location: location.coordinate) { weather in
-        let newAddress = Address()
-        newAddress.rawValue = userInput
-        newAddress.coordinates = location.coordinate
-        newAddress.weather = weather
-        self.validAddresses.insert(newAddress, at: 0)
+    self.viewModel.addAddress(userInput: userInput) { result in
+      switch result {
+      case .validAddress:
         self.table.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-        self.save()
+      case .invalidAddress:
+        self.table.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
+      case .error(let error):
+        print("Something went wrong, \(error)")
       }
     }
   }
 }
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
   func numberOfSections(in tableView: UITableView) -> Int {
     return 2
   }
@@ -90,9 +72,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch section {
     case 0:
-      return validAddresses.count
+      return self.viewModel.validAddresses.count
     case 1:
-      return invalidAddresses.count
+      return self.viewModel.invalidAddresses.count
     default:
       return 0
     }
@@ -101,34 +83,19 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     switch indexPath.section {
     case 0:
-      guard
-        let cell = tableView.dequeueReusableCell(
-          withIdentifier: "weather cell", for: indexPath
-        ) as? WeatherTableViewCell
-      else {
-        fatalError()
-      }
-
-      let address = validAddresses[indexPath.row]
-      cell.titleLabel.text = address.rawValue
-      cell.weatherLabel.text = "Temperature: \(address.weather?.temperature ?? 0)"
-      cell.iconImageView.image = address.weather?.icon.image
+      let cell = tableView.dequeueReusableCell(for: indexPath) as WeatherTableViewCell
+      let address = self.viewModel.validAddresses[indexPath.row]
+      cell.configure(address)
 
       return cell
     case 1:
-      guard
-        let cell = tableView.dequeueReusableCell(
-          withIdentifier: "unknown cell", for: indexPath
-        ) as? UnknownTableViewCell
-      else {
-        fatalError()
-      }
-
-      let address = invalidAddresses[indexPath.row]
-      cell.titleLabel.text = address.rawValue
+      let cell = tableView.dequeueReusableCell(for: indexPath) as UnknownTableViewCell
+      let address = self.viewModel.invalidAddresses[indexPath.row]
+      cell.textLabel?.text = address.rawValue
 
       return cell
     default:
+      assertionFailure("Unexpected indexPath, \(indexPath)")
       return UITableViewCell()
     }
   }
@@ -142,14 +109,13 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     case .delete:
       switch indexPath.section {
       case 0:
-        validAddresses.remove(at: indexPath.row)
+        self.viewModel.removeValidAddress(at: indexPath.row)
       case 1:
-        invalidAddresses.remove(at: indexPath.row)
+        self.viewModel.removeInvalidAddress(at: indexPath.row)
       default:
         break
       }
-      table.deleteRows(at: [indexPath], with: .automatic)
-      save()
+      self.table.deleteRows(at: [indexPath], with: .automatic)
     default: break
     }
   }
