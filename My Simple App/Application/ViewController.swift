@@ -10,147 +10,174 @@ import UIKit
 import CoreLocation
 
 class ViewController: UIViewController {
-  @IBOutlet weak var table: UITableView!
-
-  var validAddresses = [Address]()
-  var invalidAddresses = [Address]()
-
-  @IBAction func pressAddAddress(_ sender: Any) {
-    let alertNewAddress = UIAlertController(
-      title: "New Address", message: "enter a new address", preferredStyle: .alert)
-    alertNewAddress.addTextField { textField in
-      textField.textContentType = .addressCityAndState
-      textField.placeholder = "e.g. Santa Rosa, CA"
+    //  @IBOutlet weak var table: UITableView!
+    
+    lazy var table: UITableView = {
+        let table = UITableView(frame: .zero)
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.register(WeatherTableViewCell.self, forCellReuseIdentifier: WeatherTableViewCell.cellIdentifier)
+        table.register(UnknownTableViewCell.self, forCellReuseIdentifier: UnknownTableViewCell.cellIdentifier)
+        return table
+    }()
+    
+    func tableConstrain() {
+        table.delegate = self
+        table.dataSource = self
+        NSLayoutConstraint.activate([
+            table.topAnchor.constraint(equalTo: view.topAnchor),
+            table.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            table.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            table.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
-    let saveButton = UIAlertAction(title: "Save", style: .default) { _ in
-      self.addNewAddress(userInput: alertNewAddress.textFields![0].text ?? "")
+    
+    var validAddresses = [Address]()
+    var invalidAddresses = [Address]()
+    
+    @IBAction func pressAddAddress(_ sender: Any) {
+        let alertNewAddress = UIAlertController(
+            title: "New Address", message: "enter a new address", preferredStyle: .alert)
+        alertNewAddress.addTextField { textField in
+            textField.textContentType = .addressCityAndState
+            textField.placeholder = "e.g. Santa Rosa, CA"
+        }
+        let saveButton = UIAlertAction(title: "Save", style: .default) { _ in
+            self.addNewAddress(userInput: alertNewAddress.textFields![0].text ?? "")
+        }
+        alertNewAddress.addAction(saveButton)
+        alertNewAddress.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(alertNewAddress, animated: true)
     }
-    alertNewAddress.addAction(saveButton)
-    alertNewAddress.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-    present(alertNewAddress, animated: true)
-  }
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-
-    self.load()
-    self.table.reloadData()
-  }
-
-  private func save() {
-    DataStore.save(validAddresses: validAddresses, invalidAddresses: invalidAddresses)
-  }
-
-  private func load() {
-    let userData = DataStore.load()
-    validAddresses = userData.validAddresses
-    invalidAddresses = userData.invalidAddresses
-  }
-
-  private func addNewAddress(userInput: String) {
-    Location.coordinates(from: userInput) { location in
-      guard let location = location else {
-        let newAddress = Address()
-        newAddress.rawValue = userInput
-        self.invalidAddresses.insert(newAddress, at: 0)
-        self.table.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
-        self.save()
-        return
-      }
-
-      Networking.fetchWeather(location: location.coordinate) { weather in
-        let newAddress = Address()
-        newAddress.rawValue = userInput
-        newAddress.coordinates = location.coordinate
-        newAddress.weather = weather
-        self.validAddresses.insert(newAddress, at: 0)
-        self.table.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-        self.save()
-      }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(table)
+        tableConstrain()
+        self.load()
+        self.table.reloadData()
     }
-  }
+    
+    private func save() {
+        DataStore.save(validAddresses: validAddresses, invalidAddresses: invalidAddresses)
+    }
+    
+    private func load() {
+        let userData = DataStore.load()
+        validAddresses = userData.validAddresses
+        invalidAddresses = userData.invalidAddresses
+    }
+    
+    private func addNewAddress(userInput: String) {
+        Location.coordinates(from: userInput) { location in
+            guard let location = location else {
+                let newAddress = Address()
+                newAddress.rawValue = userInput
+                self.invalidAddresses.insert(newAddress, at: 0)
+                self.table.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
+                self.save()
+                return
+            }
+            
+            Networking.fetchWeather(location: location.coordinate) { weather in
+                let newAddress = Address()
+                newAddress.rawValue = userInput
+                newAddress.coordinates = location.coordinate
+                newAddress.weather = weather
+                self.validAddresses.insert(newAddress, at: 0)
+                self.table.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+                self.save()
+            }
+        }
+    }
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
-  func numberOfSections(in tableView: UITableView) -> Int {
-    return 2
-  }
-
-  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    switch section {
-    case 0:
-      return "Valid Addresses"
-    case 1:
-      return "Invalid Addresses"
-    default:
-      return nil
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
-  }
-
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    switch section {
-    case 0:
-      return validAddresses.count
-    case 1:
-      return invalidAddresses.count
-    default:
-      return 0
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
-  }
-
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    switch indexPath.section {
-    case 0:
-      guard
-        let cell = tableView.dequeueReusableCell(
-          withIdentifier: "weather cell", for: indexPath
-        ) as? WeatherTableViewCell
-      else {
-        fatalError()
-      }
-
-      let address = validAddresses[indexPath.row]
-      cell.titleLabel.text = address.rawValue
-      cell.weatherLabel.text = "Temperature: \(address.weather?.temperature ?? 0)"
-      cell.iconImageView.image = address.weather?.icon.image
-
-      return cell
-    case 1:
-      guard
-        let cell = tableView.dequeueReusableCell(
-          withIdentifier: "unknown cell", for: indexPath
-        ) as? UnknownTableViewCell
-      else {
-        fatalError()
-      }
-
-      let address = invalidAddresses[indexPath.row]
-      cell.titleLabel.text = address.rawValue
-
-      return cell
-    default:
-      return UITableViewCell()
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Valid Addresses"
+        case 1:
+            return "Invalid Addresses"
+        default:
+            return nil
+        }
     }
-  }
-
-  func tableView(
-    _ tableView: UITableView,
-    commit editingStyle: UITableViewCell.EditingStyle,
-    forRowAt indexPath: IndexPath
-  ) {
-    switch editingStyle {
-    case .delete:
-      switch indexPath.section {
-      case 0:
-        validAddresses.remove(at: indexPath.row)
-      case 1:
-        invalidAddresses.remove(at: indexPath.row)
-      default:
-        break
-      }
-      table.deleteRows(at: [indexPath], with: .automatic)
-      save()
-    default: break
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return validAddresses.count
+        case 1:
+            return invalidAddresses.count
+        default:
+            return 0
+        }
     }
-  }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.section {
+        case 0:
+            guard
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: WeatherTableViewCell.cellIdentifier, for: indexPath
+                ) as? WeatherTableViewCell
+            else {
+                fatalError()
+            }
+            
+            let address = validAddresses[indexPath.row]
+            cell.titleLabel.text = address.rawValue
+            cell.weatherLabel.text = "Temperature: \(address.weather?.temperature ?? 0)"
+            cell.iconImageView.image = address.weather?.icon.image
+            
+            return cell
+        case 1:
+            guard
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: UnknownTableViewCell.cellIdentifier, for: indexPath
+                ) as? UnknownTableViewCell
+            else {
+                fatalError()
+            }
+            
+            let address = invalidAddresses[indexPath.row]
+            cell.titleLabel.text = address.rawValue
+            
+            return cell
+        default:
+            return UITableViewCell()
+        }
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        switch editingStyle {
+        case .delete:
+            switch indexPath.section {
+            case 0:
+                validAddresses.remove(at: indexPath.row)
+            case 1:
+                invalidAddresses.remove(at: indexPath.row)
+            default:
+                break
+            }
+            table.deleteRows(at: [indexPath], with: .automatic)
+            save()
+        default: break
+        }
+    }
 }
