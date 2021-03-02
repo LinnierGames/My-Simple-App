@@ -11,6 +11,7 @@ import MapKit
 
 class LocationSearchTable: UITableViewController {
     
+    weak var handleAddAddressDelegate: HandleAddAddress?
     var matchingItems: [MKMapItem] = []
     var mapView: MKMapView?
     
@@ -27,31 +28,22 @@ class LocationSearchTable: UITableViewController {
         let streetNumber = selectedItem.subThoroughfare
         let streetName = selectedItem.thoroughfare
         let cityName = selectedItem.locality
+        var streetAddress: String?
+        if let streetNumber = streetNumber,
+           let name = streetName {
+            streetAddress = "\(streetNumber) \(name)"
+        } else if let streetName = selectedItem.name {
+            streetAddress = streetName
+        }
         let countyName = selectedItem.subAdministrativeArea
         let stateName = selectedItem.administrativeArea
-        // put a space between streetNumber and streetName
-        let firstSpace = streetNumber != nil &&
-                            streetName != nil ? " " : ""
         // put a comma between street and city/state
-        let comma = (streetNumber != nil || streetName != nil) &&
+        let comma = streetAddress != nil &&
                     (selectedItem.subAdministrativeArea != nil || cityName != nil) ? ", " : ""
         // put a space between "Washington" and "DC"
-        let secondSpace = (countyName != nil &&
+        let extraSpace = (countyName != nil &&
                             stateName != nil) ? " " : ""
-        let addressLine = String(
-            format:"%@%@%@%@%@%@%@",
-            // street number
-            selectedItem.subThoroughfare ?? "",
-            firstSpace,
-            // street name
-            selectedItem.thoroughfare ?? "",
-            comma,
-            // city
-            selectedItem.locality ?? "",
-            secondSpace,
-            // state
-            selectedItem.administrativeArea ?? ""
-        )
+        let addressLine = "\(streetAddress ?? "")\(comma)\(cityName ?? "")\(extraSpace)\(stateName ?? "")"
         return addressLine
     }
 }
@@ -91,6 +83,7 @@ extension LocationSearchTable {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = matchingItems[indexPath.row].placemark
         print("Selected item is \(selectedItem)")
+        handleAddAddressDelegate?.addNewItem(placemark: selectedItem)
         dismiss(animated: true, completion: nil)
     }
 }
