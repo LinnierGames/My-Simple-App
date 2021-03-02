@@ -1,9 +1,8 @@
 # Weather app `weather-app`
 
-<p float="left">
-    <img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppDemo.gif?raw=true"/>
-    <img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherApp.png?raw=true"/> 
-</p>
+<img align="left" src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppDemo.gif?raw=true" alt="Demo" title="Demo" hspace="20"/>
+<img align="left" src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherApp.png?raw=true" alt="Screenshot" title="Screenshot" hspace="20"/>
+<br/><br/><br/><br/><br/>
 
 - view the weather in a table view
 - user can enter an address
