@@ -2,17 +2,16 @@
 
 
 
-<table>
-  <tr>
-    <td valign="top"><img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppDemo.gif?raw=true"></td>
-    <td valign="top"><img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherApp.png?raw=true"></td>
-  </tr>
- </table>
+ <p align="center">
+   <img alt="Light" src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppDemo.gif" width=300>
+ &nbsp; &nbsp; &nbsp; &nbsp;
+   <img alt="Dark" src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherApp.png?raw=true" width=300>
+ </p>
  
  <table>
    <tr>
-     <td valign="top"><img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppDemo.gif?raw=true" width=300></td>
-     <td valign="top"><img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherApp.png?raw=true" width=300></td>
+     <td valign="top"><img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppDemo.gif" width=300></td>
+     <td valign="top"><img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherApp.png" width=300></td>
    </tr>
   </table>
 
