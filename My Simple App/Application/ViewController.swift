@@ -53,6 +53,7 @@ class ViewController: UIViewController {
         navigationItem.titleView = resultSearchController?.searchBar
         resultSearchController.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = true
+        locationSearchTable.handleAddAddressDelegate = self
     }
     
   private func save() {
@@ -171,4 +172,29 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     default: break
     }
   }
+}
+
+extension ViewController: HandleAddAddress {
+    func addNewItem(placemark: MKPlacemark) {
+        print("Placemark \(placemark)")
+        let address = Address()
+        if let _ = placemark.subThoroughfare,
+           let _ = placemark.thoroughfare,
+           let title = placemark.title { //if we have a street number and name
+            address.rawValue = title
+            
+        } else if let areaName = placemark.name,
+                  let cityName = placemark.locality,
+                  let stateName = placemark.administrativeArea {
+            address.rawValue = "\(areaName) \(cityName), \(stateName)"
+        }
+        address.coordinates = placemark.coordinate
+        Networking.fetchWeather(location: placemark.coordinate) { weather in
+            address.weather = weather
+            self.validAddresses.insert(address, at: 0)
+            self.table.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+            self.save()
+        }
+        
+    }
 }
