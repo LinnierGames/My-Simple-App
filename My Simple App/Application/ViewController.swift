@@ -8,6 +8,11 @@
 
 import UIKit
 import CoreLocation
+import MapKit
+
+protocol HandleAddAddress: class {
+    func addNewItem(placemark: MKPlacemark)
+}
 
 class ViewController: UIViewController {
   @IBOutlet weak var table: UITableView!
