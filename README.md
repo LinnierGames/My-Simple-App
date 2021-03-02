@@ -6,6 +6,8 @@
    <img alt="Light" src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppDemo.gif" width=300>
  &nbsp; &nbsp; &nbsp; &nbsp;
    <img alt="Dark" src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherApp.png?raw=true" width=300>
+   
+   <img alt="Dark" src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherApp2.png?raw=true" width=300>
  </p>
  
  <table>
