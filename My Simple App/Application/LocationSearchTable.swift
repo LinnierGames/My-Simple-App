@@ -35,15 +35,14 @@ class LocationSearchTable: UITableViewController {
         } else if let areaName = selectedItem.name, areaName != cityName {
             streetAddress = areaName
         }
-        let countyName = selectedItem.subAdministrativeArea
+//        let countyName = selectedItem.subAdministrativeArea
         let stateName = selectedItem.administrativeArea
         // put a comma between street and city/state
-        let comma = streetAddress != nil &&
-                    (selectedItem.subAdministrativeArea != nil || cityName != nil) ? ", " : ""
-        // put a space between "Washington" and "DC"
-        let extraSpace = (countyName != nil &&
-                            stateName != nil) ? " " : ""
-        let addressLine = "\(streetAddress ?? "")\(comma)\(cityName ?? "")\(extraSpace)\(stateName ?? "")"
+        let comma = streetAddress != nil && cityName != nil ? ", " : ""
+        // put a comma between city and state
+        let secondComma = (cityName != nil &&
+                            stateName != nil) ? ", " : ""
+        let addressLine = "\(streetAddress ?? "")\(comma)\(cityName ?? "")\(secondComma)\(stateName ?? "")"
         return addressLine
     }
 }
