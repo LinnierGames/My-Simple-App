@@ -6,4 +6,15 @@
 //  Copyright © 2021 Erick Sanchez. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class LocationSearchCell: UITableViewCell {
+    
+    override init(style: UITableViewCell.CellStyle = .subtitle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
