@@ -11,7 +11,8 @@ import CoreLocation
 
 class ViewController: UIViewController {
   @IBOutlet weak var table: UITableView!
-
+  var resultSearchController: UISearchController!
+    
   var validAddresses = [Address]()
   var invalidAddresses = [Address]()
 
@@ -32,11 +33,23 @@ class ViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    setupSearchController()
     self.load()
     self.table.reloadData()
   }
 
+    private func setupSearchController() {
+        let locationSearchTable = LocationSearchTable()
+        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        resultSearchController.searchResultsUpdater = locationSearchTable
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Search for places"
+        navigationItem.titleView = resultSearchController?.searchBar
+        resultSearchController.hidesNavigationBarDuringPresentation = false
+        definesPresentationContext = true
+    }
+    
   private func save() {
     DataStore.save(validAddresses: validAddresses, invalidAddresses: invalidAddresses)
   }
