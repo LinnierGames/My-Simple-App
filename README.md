@@ -1,5 +1,6 @@
 # Weather app `weather-app`
 <img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppDemo.gif?raw=true" width="300">
+
 - view the weather in a table view
 - user can enter an address
 - each address and weather is persisted
