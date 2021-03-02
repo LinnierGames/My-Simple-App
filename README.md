@@ -1,8 +1,8 @@
 # Weather app `weather-app`
 
 <p float="left">
-    <img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppDemo.gif?raw=true" height="500"/>
-    <img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherApp.png?raw=true" height="500" /> 
+    <img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppDemo.gif?raw=true"/>
+    <img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherApp.png?raw=true"/> 
 </p>
 
 - view the weather in a table view
