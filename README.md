@@ -1,5 +1,5 @@
 # Weather app `weather-app`
-![weather-app-1](https://user-images.githubusercontent.com/1758210/92414838-da244b00-f10a-11ea-85bc-60ec5f2a101f.png)
+<img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppDemo.gif?raw=true" width="300">
 - view the weather in a table view
 - user can enter an address
 - each address and weather is persisted
