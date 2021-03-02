@@ -22,11 +22,7 @@ class ViewController: UIViewController {
   var invalidAddresses = [Address]()
 
   @IBAction func pressAddAddress(_ sender: Any) {
-    if let input = resultSearchController.searchBar.text, !input.isEmpty {
-        self.addNewAddress(userInput: input)
-        self.resultSearchController.searchBar.endEditing(true)
-        self.resultSearchController.searchBar.text = ""
-    }
+    addAddess()
   }
 
   override func viewDidLoad() {
@@ -44,6 +40,8 @@ class ViewController: UIViewController {
     let searchBar = resultSearchController!.searchBar
     searchBar.sizeToFit()
     searchBar.placeholder = "Search for places"
+    searchBar.autocapitalizationType = .words
+    searchBar.delegate = self
     navigationItem.titleView = resultSearchController?.searchBar
     resultSearchController.hidesNavigationBarDuringPresentation = false
     definesPresentationContext = true
@@ -69,7 +67,6 @@ class ViewController: UIViewController {
         self.save()
         return
       }
-
       Networking.fetchWeather(location: location.coordinate) { weather in
         let newAddress = Address()
         newAddress.rawValue = userInput
@@ -79,6 +76,14 @@ class ViewController: UIViewController {
         self.table.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
         self.save()
       }
+    }
+  }
+    
+  private func addAddess() {
+    if let input = resultSearchController.searchBar.text, !input.isEmpty {
+      self.addNewAddress(userInput: input)
+      self.resultSearchController.searchBar.endEditing(true)
+      self.resultSearchController.searchBar.text = ""
     }
   }
 }
@@ -120,12 +125,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
       else {
         fatalError()
       }
-
       let address = validAddresses[indexPath.row]
       cell.titleLabel.text = address.rawValue
       cell.weatherLabel.text = "Temperature: \(address.weather?.temperature ?? 0)"
       cell.iconImageView.image = address.weather?.icon.image
-
       return cell
     case 1:
       guard
@@ -135,10 +138,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
       else {
         fatalError()
       }
-
       let address = invalidAddresses[indexPath.row]
       cell.titleLabel.text = address.rawValue
-
       return cell
     default:
       return UITableViewCell()
@@ -164,6 +165,12 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
       save()
     default: break
     }
+  }
+}
+
+extension ViewController: UISearchBarDelegate {
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    addAddess()
   }
 }
 
