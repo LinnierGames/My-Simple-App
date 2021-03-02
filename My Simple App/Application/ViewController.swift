@@ -22,45 +22,38 @@ class ViewController: UIViewController {
   var invalidAddresses = [Address]()
 
   @IBAction func pressAddAddress(_ sender: Any) {
-    let alertNewAddress = UIAlertController(
-      title: "New Address", message: "enter a new address", preferredStyle: .alert)
-    alertNewAddress.addTextField { textField in
-      textField.textContentType = .addressCityAndState
-      textField.placeholder = "e.g. Santa Rosa, CA"
+    if let input = resultSearchController.searchBar.text, !input.isEmpty {
+        self.addNewAddress(userInput: input)
+        self.resultSearchController.searchBar.endEditing(true)
+        self.resultSearchController.searchBar.text = ""
     }
-    let saveButton = UIAlertAction(title: "Save", style: .default) { _ in
-      self.addNewAddress(userInput: alertNewAddress.textFields![0].text ?? "")
-    }
-    alertNewAddress.addAction(saveButton)
-    alertNewAddress.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-    present(alertNewAddress, animated: true)
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
     setupSearchController()
-    self.load()
-    self.table.reloadData()
+    loadAddresses()
+    table.reloadData()
   }
 
-    private func setupSearchController() {
-        let locationSearchTable = LocationSearchTable()
-        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-        resultSearchController.searchResultsUpdater = locationSearchTable
-        let searchBar = resultSearchController!.searchBar
-        searchBar.sizeToFit()
-        searchBar.placeholder = "Search for places"
-        navigationItem.titleView = resultSearchController?.searchBar
-        resultSearchController.hidesNavigationBarDuringPresentation = false
-        definesPresentationContext = true
-        locationSearchTable.handleAddAddressDelegate = self
-    }
+  private func setupSearchController() {
+    let locationSearchTable = LocationSearchTable()
+    locationSearchTable.handleAddAddressDelegate = self
+    resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+    resultSearchController.searchResultsUpdater = locationSearchTable
+    let searchBar = resultSearchController!.searchBar
+    searchBar.sizeToFit()
+    searchBar.placeholder = "Search for places"
+    navigationItem.titleView = resultSearchController?.searchBar
+    resultSearchController.hidesNavigationBarDuringPresentation = false
+    definesPresentationContext = true
+  }
     
   private func save() {
     DataStore.save(validAddresses: validAddresses, invalidAddresses: invalidAddresses)
   }
 
-  private func load() {
+  private func loadAddresses() {
     let userData = DataStore.load()
     validAddresses = userData.validAddresses
     invalidAddresses = userData.invalidAddresses
@@ -175,27 +168,27 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension ViewController: HandleAddAddress {
-    func addNewItem(placemark: MKPlacemark) {
-        print("Placemark \(placemark)")
-        let address = Address()
-        if let _ = placemark.subThoroughfare,
-           let _ = placemark.thoroughfare,
-           let title = placemark.title { //if we have a street number and name
-            address.rawValue = title
-            
-        } else if let areaName = placemark.name,
-                  let cityName = placemark.locality,
-                  let stateName = placemark.administrativeArea,
-                  let country = placemark.country {
-            address.rawValue = areaName == cityName ? "\(cityName), \(stateName), \(country)" : "\(areaName) \(cityName), \(stateName), \(country)"
-        }
-        address.coordinates = placemark.coordinate
-        Networking.fetchWeather(location: placemark.coordinate) { weather in
-            address.weather = weather
-            self.validAddresses.insert(address, at: 0)
-            self.table.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-            self.save()
-        }
-        
+  func addNewItem(placemark: MKPlacemark) {
+    let address = Address()
+    if let _ = placemark.subThoroughfare,
+       let _ = placemark.thoroughfare,
+       let title = placemark.title { //if we have a street number and name
+      address.rawValue = title
+    } else if let areaName = placemark.name,
+              let cityName = placemark.locality,
+              let stateName = placemark.administrativeArea,
+              let country = placemark.country {
+      address.rawValue = areaName == cityName ? "\(cityName), \(stateName), \(country)" : "\(areaName), \(cityName), \(stateName), \(country)"
     }
+    address.coordinates = placemark.coordinate
+    Networking.fetchWeather(location: placemark.coordinate) { weather in
+      address.weather = weather
+      self.validAddresses.insert(address, at: 0)
+      self.table.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+      self.save()
+      DispatchQueue.main.async {
+        self.resultSearchController.searchBar.text = ""
+      }
+    }
+  }
 }
