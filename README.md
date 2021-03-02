@@ -4,10 +4,17 @@
 
 <table>
   <tr>
-    <td valign="top"><img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppDemo.gif"></td>
-    <td valign="top"><img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherApp.png"></td>
+    <td valign="top"><img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppDemo.gif?raw=true"></td>
+    <td valign="top"><img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherApp.png?raw=true"></td>
   </tr>
  </table>
+ 
+ <table>
+   <tr>
+     <td valign="top"><img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppDemo.gif?raw=true" width=300></td>
+     <td valign="top"><img src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherApp.png?raw=true" width=300></td>
+   </tr>
+  </table>
 
 - view the weather in a table view
 - user can enter an address
