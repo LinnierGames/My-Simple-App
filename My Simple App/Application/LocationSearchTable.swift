@@ -32,8 +32,8 @@ class LocationSearchTable: UITableViewController {
         if let streetNumber = streetNumber,
            let name = streetName {
             streetAddress = "\(streetNumber) \(name)"
-        } else if let streetName = selectedItem.name {
-            streetAddress = streetName
+        } else if let areaName = selectedItem.name, areaName != cityName {
+            streetAddress = areaName
         }
         let countyName = selectedItem.subAdministrativeArea
         let stateName = selectedItem.administrativeArea

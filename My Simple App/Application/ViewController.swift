@@ -185,8 +185,9 @@ extension ViewController: HandleAddAddress {
             
         } else if let areaName = placemark.name,
                   let cityName = placemark.locality,
-                  let stateName = placemark.administrativeArea {
-            address.rawValue = "\(areaName) \(cityName), \(stateName)"
+                  let stateName = placemark.administrativeArea,
+                  let country = placemark.country {
+            address.rawValue = areaName == cityName ? "\(cityName), \(stateName), \(country)" : "\(areaName) \(cityName), \(stateName), \(country)"
         }
         address.coordinates = placemark.coordinate
         Networking.fetchWeather(location: placemark.coordinate) { weather in
