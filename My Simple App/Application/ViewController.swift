@@ -8,40 +8,50 @@
 
 import UIKit
 import CoreLocation
+import MapKit
+
+protocol HandleAddAddress: class {
+    func addNewItem(placemark: MKPlacemark)
+}
 
 class ViewController: UIViewController {
   @IBOutlet weak var table: UITableView!
-
+  var resultSearchController: UISearchController!
+    
   var validAddresses = [Address]()
   var invalidAddresses = [Address]()
 
   @IBAction func pressAddAddress(_ sender: Any) {
-    let alertNewAddress = UIAlertController(
-      title: "New Address", message: "enter a new address", preferredStyle: .alert)
-    alertNewAddress.addTextField { textField in
-      textField.textContentType = .addressCityAndState
-      textField.placeholder = "e.g. Santa Rosa, CA"
-    }
-    let saveButton = UIAlertAction(title: "Save", style: .default) { _ in
-      self.addNewAddress(userInput: alertNewAddress.textFields![0].text ?? "")
-    }
-    alertNewAddress.addAction(saveButton)
-    alertNewAddress.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-    present(alertNewAddress, animated: true)
+    addAddess()
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
-    self.load()
-    self.table.reloadData()
+    setupSearchController()
+    loadAddresses()
+    table.reloadData()
   }
 
+  private func setupSearchController() {
+    let locationSearchTable = LocationSearchTable()
+    locationSearchTable.handleAddAddressDelegate = self
+    resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+    resultSearchController.searchResultsUpdater = locationSearchTable
+    let searchBar = resultSearchController!.searchBar
+    searchBar.sizeToFit()
+    searchBar.placeholder = "Search for places"
+    searchBar.autocapitalizationType = .words
+    searchBar.delegate = self
+    navigationItem.titleView = resultSearchController?.searchBar
+    resultSearchController.hidesNavigationBarDuringPresentation = false
+    definesPresentationContext = true
+  }
+    
   private func save() {
     DataStore.save(validAddresses: validAddresses, invalidAddresses: invalidAddresses)
   }
 
-  private func load() {
+  private func loadAddresses() {
     let userData = DataStore.load()
     validAddresses = userData.validAddresses
     invalidAddresses = userData.invalidAddresses
@@ -57,7 +67,6 @@ class ViewController: UIViewController {
         self.save()
         return
       }
-
       Networking.fetchWeather(location: location.coordinate) { weather in
         let newAddress = Address()
         newAddress.rawValue = userInput
@@ -67,6 +76,14 @@ class ViewController: UIViewController {
         self.table.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
         self.save()
       }
+    }
+  }
+    
+  private func addAddess() {
+    if let input = resultSearchController.searchBar.text, !input.isEmpty {
+      self.addNewAddress(userInput: input)
+      self.resultSearchController.searchBar.endEditing(true)
+      self.resultSearchController.searchBar.text = ""
     }
   }
 }
@@ -108,12 +125,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
       else {
         fatalError()
       }
-
       let address = validAddresses[indexPath.row]
       cell.titleLabel.text = address.rawValue
       cell.weatherLabel.text = "Temperature: \(address.weather?.temperature ?? 0)"
       cell.iconImageView.image = address.weather?.icon.image
-
       return cell
     case 1:
       guard
@@ -123,10 +138,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
       else {
         fatalError()
       }
-
       let address = invalidAddresses[indexPath.row]
       cell.titleLabel.text = address.rawValue
-
       return cell
     default:
       return UITableViewCell()
@@ -151,6 +164,38 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
       table.deleteRows(at: [indexPath], with: .automatic)
       save()
     default: break
+    }
+  }
+}
+
+extension ViewController: UISearchBarDelegate {
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    addAddess()
+  }
+}
+
+extension ViewController: HandleAddAddress {
+  func addNewItem(placemark: MKPlacemark) {
+    let address = Address()
+    if let _ = placemark.subThoroughfare,
+       let _ = placemark.thoroughfare,
+       let title = placemark.title { //if we have a street number and name
+      address.rawValue = title
+    } else if let areaName = placemark.name,
+              let cityName = placemark.locality,
+              let stateName = placemark.administrativeArea,
+              let country = placemark.country {
+      address.rawValue = areaName == cityName ? "\(cityName), \(stateName), \(country)" : "\(areaName), \(cityName), \(stateName), \(country)"
+    }
+    address.coordinates = placemark.coordinate
+    Networking.fetchWeather(location: placemark.coordinate) { weather in
+      address.weather = weather
+      self.validAddresses.insert(address, at: 0)
+      self.table.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+      self.save()
+      DispatchQueue.main.async {
+        self.resultSearchController.searchBar.text = ""
+      }
     }
   }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		54298DB225EE1FD20027767A /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54298DB125EE1FD20027767A /* LocationSearchTable.swift */; };
+		54298DB725EE23020027767A /* LocationSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54298DB625EE23020027767A /* LocationSearchCell.swift */; };
 		E100AF1A24C682F6007268AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF1924C682F6007268AE /* AppDelegate.swift */; };
 		E100AF1C24C682F6007268AE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF1B24C682F6007268AE /* SceneDelegate.swift */; };
 		E100AF1E24C682F6007268AE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100AF1D24C682F6007268AE /* ViewController.swift */; };
@@ -42,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		54298DB125EE1FD20027767A /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
+		54298DB625EE23020027767A /* LocationSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchCell.swift; sourceTree = "<group>"; };
 		E100AF1624C682F6007268AE /* My Simple App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Simple App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E100AF1924C682F6007268AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E100AF1B24C682F6007268AE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +149,8 @@
 				E100AF1924C682F6007268AE /* AppDelegate.swift */,
 				E100AF1B24C682F6007268AE /* SceneDelegate.swift */,
 				E100AF1D24C682F6007268AE /* ViewController.swift */,
+				54298DB125EE1FD20027767A /* LocationSearchTable.swift */,
+				54298DB625EE23020027767A /* LocationSearchCell.swift */,
 				E100AF4924C68D90007268AE /* WeatherTableViewCell.swift */,
 				E100AF4B24C68DD1007268AE /* UnknownTableViewCell.swift */,
 				E100AF1F24C682F6007268AE /* Main.storyboard */,
@@ -331,6 +337,8 @@
 				E100AF5824CA9316007268AE /* Location.swift in Sources */,
 				E100AF5224CA8DA8007268AE /* WeatherModels.swift in Sources */,
 				E100AF5624CA92FC007268AE /* Networking.swift in Sources */,
+				54298DB225EE1FD20027767A /* LocationSearchTable.swift in Sources */,
+				54298DB725EE23020027767A /* LocationSearchCell.swift in Sources */,
 				E100AF1E24C682F6007268AE /* ViewController.swift in Sources */,
 				E100AF4C24C68DD1007268AE /* UnknownTableViewCell.swift in Sources */,
 				E100AF4E24C6A4FA007268AE /* URLSession+Fake.swift in Sources */,

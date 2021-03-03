@@ -1,5 +1,15 @@
 # Weather app `weather-app`
-![weather-app-1](https://user-images.githubusercontent.com/1758210/92414838-da244b00-f10a-11ea-85bc-60ec5f2a101f.png)
+
+
+
+ <p align="center">
+   <img alt="Light" src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppDemo.gif" width=200>
+ &nbsp; &nbsp; &nbsp; &nbsp;
+   <img alt="Dark" src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppScreenshot.png?raw=true" width=200>
+   &nbsp; &nbsp; &nbsp; &nbsp;
+   <img alt="Dark" src="https://github.com/SamuelFolledo/My-Simple-App/blob/weather-app/static/weatherAppScreenshot2.png?raw=true" width=200>
+ </p>
+
 - view the weather in a table view
 - user can enter an address
 - each address and weather is persisted
